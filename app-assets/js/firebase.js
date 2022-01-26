@@ -6,14 +6,14 @@ import * as fbfirestore from "https://www.gstatic.com/firebasejs/9.2.0/firebase-
 import * as realtimeDb from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
 
 var firebaseConfig = {
-    apiKey: "AIzaSyC88gqlhB3xYkNdVkgz6C3vz3ZPfJ7sILA",
-    authDomain: "juanblood.firebaseapp.com",
-    databaseURL: "https://juanblood-default-rtdb.firebaseio.com",
-    projectId: "juanblood",
-    storageBucket: "juanblood.appspot.com",
-    messagingSenderId: "365198124577",
-    appId: "1:365198124577:web:f89ad84b527cb1407de560",
-    measurementId: "G-M5DHQYERFW"
+    apiKey: "AIzaSyD8QC6ZsR64favCseZEHUvtNTadH_Iz7PE",
+    authDomain: "grab-yo-groceries.firebaseapp.com",
+    databaseURL: "https://grab-yo-groceries.firebaseio.com",
+    projectId: "grab-yo-groceries",
+    storageBucket: "grab-yo-groceries.appspot.com",
+    messagingSenderId: "418215715550",
+    appId: "1:418215715550:web:53fce5dc6d5a3adf97984f",
+    measurementId: "G-2EQ0JYR8JW"
 };
 // Initialize Firebase
 export  const app = initializeApp(firebaseConfig);
