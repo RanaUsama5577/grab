@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+  <!-- BEGIN: Head-->
+  
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Juan Blood">
+    <title>Juan Blood</title>
+    <link rel="apple-touch-icon" href="mon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="mon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/vendors.min.css">
+    <!-- END: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css">
+    <link href="app-assets/fixedcolumns.css" rel="stylesheet" />
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="app-assets/css/bootstrap.min.css">
+    <!-- DataTables -->
+    
+    
+    <link rel="stylesheet" type="text/css" href="app-assets/css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/colors.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/components.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/themes/dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/themes/bordered-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/themes/semi-dark-layout.min.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="app-assets/css/core/menu/menu-types/vertical-menu.min.css">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="app-assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link href="app-assets/css/custom.css" rel="stylesheet" />
+    <!-- BEGIN: Vendor JS-->
+    <script src="app-assets/vendors/js/vendors.min.js"></script>
+    <script type="module" src="app-assets/js/firebase.js"></script>
+    <!-- END: Custom CSS-->
+
+  </head>
+  <!-- END: Head-->
+
+  <!-- BEGIN: Body-->
+  <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+    <div class="loader">
+
+    </div>
+    <!-- BEGIN: Header-->
+    <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
+      <div class="navbar-container d-flex content">
+        <ul class="nav navbar-nav align-items-center ms-auto">
+          <li class="nav-item dropdown dropdown-user">
+              <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="user-nav d-sm-flex d-none">
+                    <span id="nav-user-name" class=" fw-bolder">Admin</span>
+                    <span class="user-status">Admin</span>
+                </div>
+                <span class="avatar">
+                    <img class="round imageUrl" src="mon.png" alt="avatar" height="40" width="40">
+                    <span class="avatar-status-online"></span>
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+              <a class="dropdown-item"href="myprofile.html"><i class="me-50" data-feather="user"></i> My Profile</a>
+              <a class="dropdown-item" onclick="logout()" href="#"><i class="me-50" data-feather="power"></i> Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Main Menu-->
+    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+            <li class="nav-item me-auto">
+                <a class="navbar-brand" href="competitions.html">
+                    <span class="brand-logo">
+                        <img src="mon.png" style="width: 50px;">
+                    </span>
+                    <h2 class="brand-text">Juan Blood</h2>
+                </a>
+            </li>
+            <li class="nav-item nav-toggle">
+                <a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse">
+                    <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
+                    <i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i>
+                </a>
+            </li>
+        </ul>
+      </div>
+      <div class="shadow-bottom"></div>
+      <div class="main-menu-content">
+        <div class="sidebar-user" style="display: inline-block;width: 100%;padding: 10px;text-align: center;">
+          <div class="sidebar-user-picture">
+              <img src="/mon.png" class="imageUrl" style="width: 60px;border-radius: 20%;">
+          </div>
+          <div class="sidebar-user-details">
+              <div class="user-name">Admin</div>
+              <div class="user-role">Admin</div>
+          </div>
+        </div>
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+          <li class="nav-item">
+            <a class="d-flex align-items-center" href="index.html">
+                <i data-feather="home"></i>
+                <span class="menu-title text-truncate" data-i18n="">
+                    Dashboard
+                </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="d-flex align-items-center" href="users.html">
+                <i data-feather="plus-square"></i>
+                <span class="menu-title text-truncate" data-i18n="Dashboard">
+                    Users
+                </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="d-flex align-items-center" href="myprofile.html">
+                <i data-feather="plus-square"></i>
+                <span class="menu-title text-truncate" data-i18n="My Profile">
+                    My Profile
+                </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="d-flex align-items-center" onclick="logout()">
+                <i data-feather="log-out"></i>
+                <span class="menu-title text-truncate" data-i18n="Logout">
+                    Logout
+                </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- END: Main Menu-->
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+      <div class="content-overlay"></div>
+      <div class="header-navbar-shadow"></div>
+      <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card author-box" style="box-shadow: none!important">
+                                <div class="card-body">
+                                    <div style="text-align: center;" class="author-box-center">
+                                        <img style="width: 94px;height: 94px;" alt="image" src="/default-user-icon-4.jpg" class="imageFix rounded-circle author-box-picture userImage">
+                                        <div class="clearfix"></div>
+                                        <div class="author-box-name">
+                                            <a id="userName"></a>
+                                        </div>
+                                        <div class="author-box-job">Admin</div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-block" onclick="changePictureModal()">Change Picture</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9 col-xs-12">
+                    <div class="card">
+                        <div class="padding-20">
+                            <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" onclick="change_tab(1)" id="profile-tab2" data-bs-toggle="tab" href="#settings" role="tab" aria-selected="true">Basic Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="change_tab(2)" href="#change_password" data-bs-toggle="tab" href="#about" role="tab" aria-selected="false">Change Password</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content tab-bordered" id="tab1">
+                                <div class="tab-pane fade active show mytabs" id="show1" role="tabpanel" aria-labelledby="home-tab2">
+
+                                    <form method="post" id="editBasicForm">
+                                        <div class="card-header">
+                                            <h4>Edit Profile</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-6">
+                                                    <label for="username">Full Name</label>
+                                                    <input id="username" type="text" maxlength="32" class="form-control" disabled autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer text-right">
+                                            <span id="shower">
+                                                <button type="button" class="btn btn-primary" onclick="shower(1)"><i class="fa fa-edit"></i> Edit</button>
+                                            </span>
+                                            <span id="closer" style="display: none;">
+                                                <button type="submit" id="basicSbBtn" class="btn btn-primary"><i class="fa fa-check-circle"></i> Update</button>
+                                                <button type="button" class="btn btn-secondary" onclick="shower(2)"><i class="fa fa-times-circle"></i> Cancel</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-content tab-bordered" id="tab2" style="display: none;">
+                                <div class="tab-pane fade active mytabs" id="show2" role="tabpanel" aria-labelledby="home-tab2">
+
+                                    <form method="post" class="" id="editPasswordForm">
+                                        <div class="card-header">
+                                            <h4>Edit Password</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="password" class="d-block">New Password</label>
+                                                        <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                                                               name="password">
+                                                        <div id="pwindicator" class="pwindicator">
+                                                            <div class="bar"></div>
+                                                            <div class="label"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="password2" class="d-block">Confirm Password</label>
+                                                        <input id="password2" type="password" class="form-control" name="password-confirm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer text-right">
+                                            <button class="btn btn-primary" id="updatePwdBtn"><i class="fa fa-check-circle"></i> Update Password</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="uid">
+            <input type="hidden" id="email">
+            <div class="modal fade" id="changePictureModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+     aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="formModal"><i class="fa fa-image"></i> Change Profile Picture</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editProfileForm">
+                                <input type="hidden" id="editId">
+                                <!-- row starts -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Select Picture</label>
+                                            <input type="file" id="file" name="file" onchange="image_validation(event, this)" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- row ends -->
+                                <!-- row starts -->
+                                <div class="progress mb-3" id="progess_section" style="display: none;">
+                                    <div class="progress-bar" role="progressbar" id="bar" data-width="0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%</div>
+                                </div>
+                                <!-- row ends -->
+                                <button type="submit" id="editPictureBtn" class="btn btn-primary m-t-15 mt-2 waves-effect pull-right"><i class="fa fa-check-circle"></i> Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <!-- END: Footer-->
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="app-assets/js/core/app-menu.min.js"></script>
+    <script src="app-assets/js/core/app.min.js"></script>
+    <script src="app-assets/js/scripts/customizer.min.js"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="app-assets/js/custom.js"></script>
+    <script src="app-assets/js/auth-check.js"></script>
+    <script src="app-assets/js/logout.js"></script>
+    <script src="app-assets/js/myprofile.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
+    <script src="app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
+    <script src="app-assets/js/jquery-dateFormat.js"></script>
+    <!-- END: Page JS-->
+
+    <script>
+      $(window).on('load',  function(){
+        if (feather) {
+          feather.replace({ width: 14, height: 14 });
+        }
+      })
+    </script>
+  </body>
+  <!-- END: Body-->
+
+</html>
