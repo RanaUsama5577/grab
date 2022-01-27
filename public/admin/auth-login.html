@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Admin Panel | Signin</title>
-    <link rel="icon" type="image/png" href="mon.png">
+    <link rel="icon" type="image/png" href="../logo.png">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <!-- Core CSS -->
-    <link rel="stylesheet" href="Account/css/bulma.css">
-    <link rel="stylesheet" href="Account/css/app.css">
-    <link rel="stylesheet" href="Account/css/core.css">
+    <link rel="stylesheet" href="../Account/css/bulma.css">
+    <link rel="stylesheet" href="../Account/css/app.css">
+    <link rel="stylesheet" href="../Account/css/core.css">
     <!-- Custom CSS -->
     <link href="/assets/css/pretty.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Pretty CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Concatenated js plugins and jQuery -->
-    <script src="Account/js/app.js"></script>
+    <script src="../Account/js/app.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script type='module' src="app-assets/js/firebase.js"></script>
+    <script type='module' src="../app-assets/js/firebase.js"></script>
     <style>
         .login-wrapper .form-wrapper {
             padding: 43px 20px 25px;
@@ -31,7 +31,7 @@
             border-radius: 15px;
         }
         .button.is-solid.primary-button {
-            background: #ff6958!important;
+            background: #ee2e76!important;
             border-color: #ff6759!important;
             color: #fff !important;
         }
@@ -70,16 +70,18 @@
     <div class="login-wrapper">
         <!-- Main Wrapper -->
         <div class="login-wrapper columns is-gapless">
+            
             <!--Right Side-->
             <div class="column is-12">
                 <div class="hero form-hero is-fullheight">
+                    <!--Logo-->
                     <!--Login Form-->
                     <div class="hero-body">
                         <div style=" text-align: center;" class="form-wrapper">
-                            <img src="mon.png" style="width: 86px;margin-bottom: 7px;">
+                            <img src="../logo.png" style="width: 86px;margin-bottom: 7px;">
                             <!--Avatar-->
                             <!--Form-->
-                            <div id="login-form" method="POST" action="#" novalidate="" class="login-form">
+                            <form id="login-form" method="POST" action="#" novalidate="" class="login-form">
                                 <div class="field">
                                     <div class="control">
                                         <input class="input email-input signin" id="login-email" type="email" placeholder="Ex: User@CompanyName.com">
@@ -90,13 +92,23 @@
                                 </div>
                                 <div class="field">
                                     <div class="control">
-                                        <button onclick="forgotPassword()" id="login-button" class="button is-solid primary-button raised is-rounded is-fullwidth">Submit</button>
+                                        <input id="login-password" class="input password-input signin-pass" type="password" placeholder="●●●●●●●">
+                                        <div class="input-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                        </div>
+                                        <span style="color: #FE901D;" toggle="#login-password" class="p-viewer fa fa-fw fa-eye field-icon toggle-password">
+                                        </span>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <button type="submit" id="login-button" class="button is-solid primary-button raised is-rounded is-fullwidth">Sign In</button>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="section forgot-password">
                                 <div class="has-text-centered">
-                                    <a href="auth-login.html">Back to login</a>
+                                    <a href="forgot-password.html">Forgot Password?</a>
                                 </div>
                             </div>
                         </div>
@@ -105,12 +117,12 @@
             </div>
         </div>
     </div>
-    <script src="app-assets/js/forgotpassword.js"></script>
-    <script src="Account/js/custom.js"></script>
+    <script src="../app-assets/js/auth-login.js"></script>
+    <script src="../Account/js/custom.js"></script>
     <!-- Core js -->
-    <script src="Account/js/tipuedrop_content.js"></script>
-    <script src="Account/js/global.js"></script>
-    <script src="Account/js/main.js"></script>
+    <script src="../Account/js/tipuedrop_content.js"></script>
+    <script src="../Account/js/global.js"></script>
+    <script src="../Account/js/main.js"></script>
     <script>
         $(".toggle-password").click(function () {
             $(this).toggleClass("fa-eye fa-eye-slash");
