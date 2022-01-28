@@ -48,7 +48,7 @@ $(async function () {
     createTable();
 })
 async function createTable() {
-    const users = ref(realdb, 'Users/');
+    const users = ref(realdb, 'ParentCategories/');
     try {
         onValue(users, (snapshot) => {
             $("#table-1").DataTable().destroy();

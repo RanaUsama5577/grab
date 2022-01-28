@@ -17,6 +17,9 @@
         element.parent().parent().parent().addClass('sidebar-group-active open');
     }
  })
+ function GetTimeStamp(){
+    return new Date().getTime().toString();
+ }
  function message(title, message, type, delay) {
      if (type == "success") {
          iziToast.success({

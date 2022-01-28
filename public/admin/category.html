@@ -10,7 +10,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="Grab Yo Groceries">
     <title>Grab Yo Groceries</title>
-    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="apple-touch-icon" href="Juan1.png">
     <link rel="shortcut icon" type="image/x-icon" href="../logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
@@ -21,7 +21,6 @@
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css">
-    <link href="../app-assets/fixedcolumns.css" rel="stylesheet" />
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap.min.css">
     <!-- DataTables -->
@@ -79,12 +78,14 @@
       </div>
     </nav>
     <!-- END: Header-->
+
+
     <!-- BEGIN: Main Menu-->
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
       <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item me-auto">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="competitions.html">
                     <span class="brand-logo">
                         <img src="../logo.png" style="width: 50px;">
                     </span>
@@ -172,48 +173,62 @@
         </div>
         <div class="content-body">
             <section id="basic-datatable">
-              <div class="card card-statistics">
-                <div class="card-header">
-                    <h4 class="card-title">Statistics</h4>
-                    <div class="d-flex align-items-center">
-                    </div>
-                </div>
-                <div class="card-body statistics-body">
-                    <div class="row">
-                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
-                            <div class="d-flex flex-row">
-                                <div class="avatar bg-light-info me-2">
-                                    <div class="avatar-content">
-                                        <i data-feather="user" class="avatar-icon"></i>
-                                    </div>
-                                </div>
-                                <div class="my-auto ml-2">
-                                    <h4 id="UsersCount" class="fw-bolder mb-0">0</h4>
-                                    <p class="card-text font-small-3 mb-0">Caegories</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
-                            <div class="d-flex flex-row">
-                                <div class="avatar bg-light-danger me-2">
-                                    <div class="avatar-content">
-                                        <i data-feather="box" class="avatar-icon"></i>
-                                    </div>
-                                </div>
-                                <div class="my-auto ml-2">
-                                    <h4 id="AppsCount" class="fw-bolder mb-0">0</h4>
-                                    <p class="card-text font-small-3 mb-0">Blogs</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </section>
+              <div class="row">
+                  <div class="col-12">
+                      <div class="card">
+                          <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
+                              <button id="BackButton" style="color: #fff;margin-right: 12px;display:none;border-radius: 4px;" onclick="BackFunction()" class="btn btn-warning badge-shadow"><i class="fas fa-arrow-alt-circle-left"></i></button>
+                              <div class="head-label">
+                                  <h6 class="mb-0 PageHeading">Users</h6>
+                              </div>
+                          </div>
+                          <div class="card-body">
+                            <div id="">
+                              <div class="table-responsive">
+                                <table id="table-1" class="datatables-basic table">
+                                    <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Fullname</th>
+                                            <th>Image</th>
+                                            <th>Contact</th>
+                                            <th>Address</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dataTable">
+
+                                    </tbody>
+                                </table>
+                              </div>
+                            </div>  
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
         </div>
       </div>
     </div>
     <!-- END: Content-->
+    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">View</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+              </div>
+              <div class="modal-body" id="Address">
+                  
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                  <a class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+              </div>
+          </div>
+      </div>
+    </div>
 
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
@@ -223,7 +238,6 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="../app-assets/vendors/js/charts/apexcharts.min.js"></script>
     <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
@@ -236,8 +250,8 @@
     <!-- BEGIN: Page JS-->
     <script src="../app-assets/js/custom.js"></script>
     <script src="../app-assets/js/auth-check.js"></script>
-    <script src="../app-assets/js/home.js"></script>
     <script src="../app-assets/js/logout.js"></script>
+    <script src="../app-assets/js/categorypage.js"></script>
     <script src="../app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
     <script src="../app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
     <script src="../app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>

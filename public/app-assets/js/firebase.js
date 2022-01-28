@@ -44,3 +44,4 @@ export let onValue = realtimeDb.onValue;
 export let runTransaction   = realtimeDb.runTransaction;
 export let updateNode   = realtimeDb.update;
 export let setNode   = realtimeDb.set;
+export let removeNode   = realtimeDb.remove;

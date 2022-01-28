@@ -6098,7 +6098,7 @@ body.sidebar-gone .main-sidebar {
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background: url("../img/loading.gif") 50% 50% no-repeat #f9f9f9;
+    background: url("loading.gif") 50% 50% no-repeat #f9f9f9;
     opacity: 1
 }
 
