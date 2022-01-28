@@ -35,9 +35,12 @@ export let updateDoc = fbfirestore.updateDoc;
 export let deleteDoc = fbfirestore.deleteDoc;
 export let serverTimestamp = fbfirestore.serverTimestamp;
 export let onSnapshot = fbfirestore.onSnapshot;
+// Realtime
 export let realdb = realtimeDb.getDatabase();
 export let ref = realtimeDb.ref;
 export let get = realtimeDb.get;
 export let child = realtimeDb.child;
 export let onValue = realtimeDb.onValue;
 export let runTransaction   = realtimeDb.runTransaction;
+export let updateNode   = realtimeDb.update;
+export let setNode   = realtimeDb.set;
