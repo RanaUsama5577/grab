@@ -71,7 +71,7 @@ async function createTable() {
                     //Location
                     var location = '<a data-bs-toggle="modal" data-bs-target="#mapModal" data-lat="'+townLatitude+'" data-lng="'+townlogitude+'" data-toggle="tooltip" title="Show Location" style="color: #fff;cursor:pointer;margin-left:2px;" class="btn btn-primary badge-shadow"><i class="fas fa-map-pin"></i></a>';
                     //Edit And Delete Town
-                    var edit = '<a data-toggle="tooltip" title="Edit Town" style="color: #fff;cursor:pointer;" onclick="showEditModal(\'' + doc.key + '\')" class="btn btn-default badge-shadow"><i class="fas fa-edit"></i></a>' + inputs;
+                    var edit = '<a data-toggle="tooltip" title="Edit Town" style="color: #fff;cursor:pointer;" onclick="showEditModal(\'' + doc.key + '\')" class="btn btn-secondary badge-shadow"><i class="fas fa-edit"></i></a>' + inputs;
                     var action = '<a data-toggle="tooltip" title="Delete Town" style="color: #fff;cursor:pointer;margin-left:2px;" onclick="showDeleteModal(\'' + doc.key + '\')" class="btn btn-danger badge-shadow"><i class="fas fa-trash"></i></a>';
                     
                     var row = `<tr>
@@ -155,7 +155,11 @@ function showEditModal(Id){
     initMap(town_lat, town_lng);
     $('#addModal').modal("show");
 }
+$('#Form').submit(function(e){
+e.preventDefault();
+})
 function AddTown() {
+
     var town_name = $('#townName').val();
     var lat = $('#lat').val();
     var lng = $('#lng').val();
@@ -177,8 +181,8 @@ function AddTown() {
         $('#add_btn').addClass('btn-progress');
         if (form_type == '1') {
             var town_reference = GetTimeStamp();
-            var ref = ref(realdb, `Towns/${town_reference}`);
-            setNode(ref,{
+            var townref = ref(realdb, `Towns/${town_reference}`);
+            setNode(townref,{
                 townLatitude:lat,
                 townid:town_reference,
                 townlogitude:lng,
@@ -187,6 +191,8 @@ function AddTown() {
             })
                 .then(function(){
                     MixinSweet("Added Successfully","","success",2000);
+                    $("#Form")[0].reset();
+                    $('#addModal').modal("hide");
                 })
                 .catch(function(error){
                     console.log(error);
@@ -194,16 +200,17 @@ function AddTown() {
         }
         else {
             var Id =$('#doc_id').val();
-            var ref = ref(realdb, `Towns/${Id}`);
-            updateNode(ref,{
+            var townref = ref(realdb, `Towns/${Id}`);
+            updateNode(townref,{
                 townLatitude:lat,
-                townid:town_reference,
                 townlogitude:lng,
                 townname:town_name,
                 address:address,
             })
                 .then(function(){
                     MixinSweet("Updated Successfully","","success",2000);
+                    $("#Form")[0].reset();
+                    $('#addModal').modal("hide");s
                 })
                 .catch(function(error){
                     console.log(error);

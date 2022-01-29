@@ -7,7 +7,7 @@
  "use strict";
  $(function () {
     
-    var path = location.pathname.replace("/","");
+    var path = location.pathname.replace("/admin/","");
     var element = $('#main-menu-navigation').find("[href='" + path + "']");
     element.parent().addClass('active');
     if (element.parent().hasClass('.nav-item')) {

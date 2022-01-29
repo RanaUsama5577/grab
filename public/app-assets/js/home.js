@@ -45,8 +45,7 @@ $(async function () {
     getDetails();
 })
 async function getDetails() {
-    var users = ref(realdb, 'UserData/');
-    var apps = ref(realdb, 'AppointmentData/');
+    var users = ref(realdb, 'Users/');
     try {
         onValue(users, (snapshot) => {
             var count2  = 0;
@@ -54,18 +53,6 @@ async function getDetails() {
                 count2 ++;
             })
             $('#UsersCount').html(count2);
-        });
-        onValue(apps, (snapshot) => {
-            var count  = 0;
-            var s = snapshot.val();
-            var result = Object.keys(s).map((key) => [key, s[key]]);
-            result.forEach(function(item){
-                var q = item[1];
-                var result2 = Object.keys(q).map((key) => [key, q[key]]);
-                count += result2.length;
-            })
-            console.log("count ", count);
-            $('#AppsCount').html(count);
         });
     }
     catch (ex) {
