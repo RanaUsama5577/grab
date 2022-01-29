@@ -1,0 +1,23 @@
+{
+  "emulators": {
+    "hosting": {
+      "host": "localhost",
+      "port": "8000"
+    }
+  },
+  "hosting": {
+    "public": "public",
+    "target": "admin",
+    "rewrites":[{
+      "source":"**",
+      "function":"app"
+    }],
+    "port": "8000",
+    "host": "localhost",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

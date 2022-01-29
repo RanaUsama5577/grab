@@ -1,0 +1,89 @@
+<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+    <div class="navbar-header">
+      <ul class="nav navbar-nav flex-row">
+          <li class="nav-item me-auto">
+              <a class="navbar-brand" href="/dashboard">
+                  <span class="brand-logo">
+                      <img src="logo.png" style="width: 50px;">
+                  </span>
+                  <h2 class="brand-text">Admin Portal</h2>
+              </a>
+          </li>
+          <li class="nav-item nav-toggle">
+              <a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse">
+                  <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
+                  <i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i>
+              </a>
+          </li>
+      </ul>
+    </div>
+    <div class="main-menu-content">
+      <div class="sidebar-user" style="display: inline-block;width: 100%;padding: 10px;text-align: center;">
+        <div class="sidebar-user-picture">
+            <img src="/logo.png" style="width: 60px;border-radius: 20%;">
+        </div>
+        <div class="sidebar-user-details">
+            <div class="user-name">Admin</div>
+            <div class="user-role">Admin</div>
+        </div>
+      </div>
+      <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+        <li class="nav-item">
+          <a class="d-flex align-items-center" href="dashboard">
+              <i data-feather="home"></i>
+              <span class="menu-title text-truncate" data-i18n="">
+                  Dashboard
+              </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="d-flex align-items-center" href="users">
+              <i data-feather="users"></i>
+              <span class="menu-title text-truncate" data-i18n="Dashboard">
+                  Users
+              </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="d-flex align-items-center" href="towns">
+              <i data-feather="map-pin"></i>
+              <span class="menu-title text-truncate" data-i18n="Towns">
+                  Towns
+              </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="d-flex align-items-center" href="category">
+              <i data-feather="git-branch"></i>
+              <span class="menu-title text-truncate" data-i18n="Categories">
+                  Category
+              </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="d-flex align-items-center" href="subcategory">
+              <i data-feather="git-branch"></i>
+              <span class="menu-title text-truncate" data-i18n="Subcategories">
+                  Subcategories
+              </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="d-flex align-items-center" href="myprofile">
+              <i data-feather="user"></i>
+              <span class="menu-title text-truncate" data-i18n="My Profile">
+                  My Profile
+              </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="d-flex align-items-center" onclick="logout()">
+              <i data-feather="log-out"></i>
+              <span class="menu-title text-truncate" data-i18n="Logout">
+                  Logout
+              </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>

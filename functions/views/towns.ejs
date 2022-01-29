@@ -1,0 +1,41 @@
+<div class="content-body">
+    <section id="basic-datatable">
+      <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
+                    <div class="head-label">
+                        <h6 class="mb-0">Towns</h6>
+                    </div>
+                    <div class="dt-buttons d-inline-flex" style="margin-left: auto;">
+                        <button class="dt-button create-new btn btn-primary"  onclick="addNewModal()" type="button">
+                            <span>Add New Record</span>
+                        </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="">
+                      <div class="table-responsive">
+                        <table id="table-1" class="datatables-basic table">
+                            <thead>
+                                <tr>
+                                    <th>Sr#</th>
+                                    <th>Town Name</th>
+                                    <th>Location</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTable">
+
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+</div>
+
+<script src="app-assets/js/towns.js"></script>

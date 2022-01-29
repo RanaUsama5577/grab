@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "grab-yo-groceries"
+  },
+  "targets": {
+    "grab-yo-groceries": {
+      "hosting": {
+        "admin": [
+          "admin-portal1"
+        ]
+      }
+    }
+  }
+}
