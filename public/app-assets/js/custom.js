@@ -6,16 +6,15 @@
  */
  "use strict";
  $(function () {
-    
     var path = location.pathname.replace("/","");
-    var element = $('#main-menu-navigation').find("[href='" + path + "']");
+    if(path == ""){
+        var element = $('#main-menu-navigation').find("[href='dashboard']");
+    }
+    else{
+        var element = $('#main-menu-navigation').find("[href='" + path + "']");
+    }
     element.parent().addClass('active');
-    if (element.parent().hasClass('.nav-item')) {
-        
-    }
-    else {
-        element.parent().parent().parent().addClass('sidebar-group-active open');
-    }
+    
  })
  function GetTimeStamp(){
     return new Date().getTime().toString();

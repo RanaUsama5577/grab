@@ -1,0 +1,98 @@
+<link rel="stylesheet" type="text/css" href="app-assets/file-uploader/file-upload-with-preview.min.css">
+
+<div class="content-body">
+    <section id="basic-datatable">
+      <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
+                    <div class="head-label">
+                        <h6 class="mb-0">Categories</h6>
+                    </div>
+                    <div class="dt-buttons d-inline-flex" style="margin-left: auto;">
+                        <button class="dt-button create-new btn btn-primary"  onclick="addNewModal()" type="button">
+                            <span>Add New Record</span>
+                        </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="">
+                      <div class="table-responsive">
+                        <table id="table-1" class="datatables-basic table">
+                            <thead>
+                                <tr>
+                                    <th>Sr#</th>
+                                    <th>Subcategory Name</th>
+                                    <th>Category Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTable">
+
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Subcategory</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form id="Form">
+                <div class="modal-body">
+                    <input type="hidden" id="form_type" value="1"/>
+                    <input type="hidden" id="doc_id" value="1"/>
+  
+                    <div class="row">
+                        <div class="col-md-6 mb-2 " id="selectTownDiv">
+                            <div class="form-group">
+                                <label for="town_id">Select Town</label>
+                                <select class="form-select select2" id="town_id" onchange="GetCatAppend(this)">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2 " id="selectCategoryDiv">
+                            <div class="form-group">
+                                <label for="cat_id">Select Category</label>
+                                <select class="form-select select2" id="cat_id">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label for="catName">Subcateogory Name</label>
+                                <input class="form-control" id="catName" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default waves-effect" style="margin-left:auto;" data-bs-dismiss="modal">Close</a>
+                    <button type="submit" onclick="AddCategory()" id="add_btn" class="btn btn-primary btn btn-primary waves-effect waves-light"><i style="margin-right:4px;" class="fa fa-check-circle"></i>Submit</button>
+                </div>
+            </form>
+        </div>
+    </div><!-- /.modal -->
+  </div>
+  <div style="display:none">
+    <select id="selectCategoryDefault">
+
+    </select>
+  </div>
+
+<script src="app-assets/js/subcategoriespage.js"></script>
+<script src="app-assets/file-uploader/file-upload-with-preview.min.js"></script>
+<script src="app-assets/select/select2.full.min.js"></script>
+<script src="app-assets/select/form-select2.min.js"></script>

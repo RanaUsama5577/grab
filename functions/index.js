@@ -29,6 +29,21 @@ app.get('/category', function(req, res) {
 app.get('/subcategory', function(req, res) {
     res.render('subcategory');
 }); 
+app.get('/product', function(req, res) {
+    res.render('product');
+});
+app.get('/orders', function(req, res) {
+    res.render('orders');
+});
+app.get('/terms_and_conditions', function(req, res) {
+    res.render('terms_and_conditions');
+});
+app.get('/about_app', function(req, res) {
+    res.render('about_app');
+});
+app.get('/faqs', function(req, res) {
+    res.render('faqs');
+});
 app.get('/myprofile', function(req, res) {
     res.render('myprofile');
 });  

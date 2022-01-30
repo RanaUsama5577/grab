@@ -1,3 +1,16 @@
+<style>
+  .pac-container {
+      z-index: 99999999 !important;
+      width: 359px;
+      box-shadow: none;
+      border-top: none;
+  }
+
+  #map {
+      height: 412px;
+      width: 100%;
+  }
+</style>
 <div class="content-body">
     <section id="basic-datatable">
       <div class="row">
@@ -37,5 +50,94 @@
       </div>
   </section>
 </div>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Towns</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </button>
+          </div>
+          <form id="Form">
+              <div class="modal-body">
+                  <input type="hidden" id="form_type" value="1"/>
+                  <input type="hidden" id="doc_id" value="1"/>
 
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="townName"></label>
+                              <input class="form-control" id="townName" type="text" />
+                          </div>
+                      </div>
+                      <div class="col-12 mt-2">
+                          <div class="form-group">
+                              <label>Map Location</label>
+                              <div class="input-group">
+                                  <input type="hidden" class="form-control" name="Latitude" id="lat" value="-33.878358" />
+                                  <input type="hidden" class="form-control" name="Longitude" id="lng" value="151.1835443" />
+                                  <input style="width:90%;z-index:2147483647;" id="autocomplete_search" name="Address" type="text" class="form-control rounded" placeholder="Search Location" />
+                                  <br />
+                                  <div class="form-group" style="width: 100%;">
+                                      <div id="map" style="width:100%; height:400px;padding:10px;margin-top:10px;"></div>
+                                      <button hidden id="MyLocator" style="background-color: rgb(255, 255, 255);box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;display: block;border: 0px;margin: 0px; padding: 0px;text-transform: none;position: relative;cursor: pointer;user-select: none;overflow: hidden;width: 40px;height: 40px;top: -250px;float: right;right: 11px;">
+                                      </button>
+                                  </div>
+                                  <label id="lab" style=" position: relative;top: -69px;font-size: 16px;font-weight: 500;"></label>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <a class="btn btn-default waves-effect" style="margin-left:auto;" data-bs-dismiss="modal">Close</a>
+                  <button type="submit" onclick="AddTown()" id="add_btn" class="btn btn-primary btn btn-primary waves-effect waves-light"><i style="margin-right:4px;" class="fa fa-check-circle"></i>Submit</button>
+              </div>
+          </form>
+      </div>
+  </div><!-- /.modal -->
+</div>
+
+
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Location</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-12 modal_body_map">
+                      <div class="location-map" id="location-map">
+                          <div style="width: 600px; height: 400px;" id="map_canvas"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div><!-- /.modal -->
+</div>
+
+<!-- END: Content-->
+<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">View</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body" id="Address">
+            
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+            <a class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+        </div>
+    </div>
+  </div>
+</div>
+<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt7JTzt_AoYGTPLoHIwYt8vw0vkjErorc&libraries=places&callback=initMap"></script>
 <script src="app-assets/js/towns.js"></script>
+<script src="app-assets/js/map.js"></script>
