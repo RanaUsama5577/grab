@@ -1,0 +1,173 @@
+<link rel="stylesheet" type="text/css" href="app-assets/file-uploader/file-upload-with-preview.min.css">
+
+<div class="content-body">
+    <section id="basic-datatable">
+      <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
+                    <div class="head-label">
+                        <h6 class="mb-0">Products</h6>
+                    </div>
+                    <div class="dt-buttons d-inline-flex" style="margin-left: auto;">
+                        <button class="dt-button create-new btn btn-primary"  onclick="addNewModal()" type="button">
+                            <span>Add New Record</span>
+                        </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="">
+                      <div class="table-responsive">
+                        <table id="table-1" class="datatables-basic table">
+                            <thead>
+                                <tr>
+                                    <th>Sr#</th>
+                                    <th>Product</th>
+                                    <th>Description</th>
+                                    <th>Town</th>
+                                    <th>Category</th>
+                                    <th>Sub category</th>
+                                    <th>Info</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTable">
+
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+</div>
+<!-- END: Content-->
+<div class="modal fade" id="descModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body" id="DescBody">
+                
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+                <a class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display:none">
+    <select id="selectCategoryDefault">
+
+    </select>
+    <select id="selectSubCategoryDefault">
+
+    </select>
+  </div>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Towns</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form id="Form">
+                <div class="modal-body">
+                    <input type="hidden" id="form_type" value="1"/>
+                    <input type="hidden" id="doc_id" value="1"/>
+  
+                    <div class="row">
+                        <div class="col-md-6 mb-2 " id="selectTown">
+                            <div class="form-group">
+                                <label for="town_id">Select Town</label>
+                                <select class="form-select select2" id="town_id">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2 " id="selectCat">
+                            <div class="form-group">
+                                <label for="town_id">Select Category</label>
+                                <select class="form-select select2" id="cat_id">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2 " id="selectSubCat">
+                            <div class="form-group">
+                                <label for="town_id">Select Subcategory</label>
+                                <select class="form-select select2" id="sub_cat_id">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label for="productName">Product Name</label>
+                                <input class="form-control" id="productName" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <div class="form-group">
+                                <label for="productDesc">Product Description</label>
+                                <textarea class="form-control" id="productDesc"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label for="checkerpayprice">Checker Pay Price</label>
+                                <input class="form-control float_valid" id="checkerpayprice" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label for="checkerpayprice">Pick And Pay Price</label>
+                                <input class="form-control float_valid" id="pickpayprice" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label for="checkerpayprice">S Pars Price</label>
+                                <input class="form-control float_valid" id="sparsprice" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <div class="custom-file-container" data-upload-id="myFirstImage">
+                              <label style="color:black">* Product Image <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
+                              <label class="custom-file-container__custom-file">
+                                  <input type="file" class="custom-file-container__custom-file__custom-file-input" id="file" name="file">
+                                  <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                  <span class="custom-file-container__custom-file__custom-file-control"></span>
+                              </label>
+                              <div class="custom-file-container__image-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row starts -->
+                <div class="progress-wrapper">
+                    <div class="progress progress-bar-primary" id="progess_section" style="display: none;margin-bottom:10px;">
+                      <div class="progress-bar" id="bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-describedby="example-caption-1"></div>
+                    </div>
+                  </div>
+                  <!-- row ends -->
+                <div class="modal-footer">
+                    <a class="btn btn-default waves-effect" style="margin-left:auto;" data-bs-dismiss="modal">Close</a>
+                    <button type="submit" onclick="AddProduct()" id="add_btn" class="btn btn-primary btn btn-primary waves-effect waves-light"><i style="margin-right:4px;" class="fa fa-check-circle"></i>Submit</button>
+                </div>
+            </form>
+        </div>
+    </div><!-- /.modal -->
+  </div>
+
+<script src="app-assets/js/productspage.js"></script>
+<script src="app-assets/file-uploader/file-upload-with-preview.min.js"></script>
+<script src="app-assets/select/select2.full.min.js"></script>
+<script src="app-assets/select/form-select2.min.js"></script>

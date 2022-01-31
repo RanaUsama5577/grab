@@ -30,7 +30,7 @@ app.get('/subcategory', function(req, res) {
     res.render('subcategory');
 }); 
 app.get('/product', function(req, res) {
-    res.render('product');
+    res.render('products');
 });
 app.get('/orders', function(req, res) {
     res.render('orders');
