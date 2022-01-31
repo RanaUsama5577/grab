@@ -1,0 +1,78 @@
+<div class="content-body">
+    <section>
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 style=" display: inline-block;" class="PageHeading">Price Setting</h4>
+                        <div class="d-inline mr-2" style="margin-left:auto;">
+                            <button class="btn btn-primary" onclick="EditInfo()" type="button">
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Service Fee Setting
+                            </div>
+                            <div id="service_charges" style="text-align:right;" class="col-md-6">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Delivery Charge Setting
+                            </div>
+                            <div id="delivery_charge" style="text-align:right;" class="col-md-6">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body" id="CategoryForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Service Fee</label>
+                            <input type="text" maxlength="100" class="form-control float_valid" placeholder="Enter Service Fee" id="service_fee">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Delivery Charge</label>
+                            <input type="text" maxlength="100" class="form-control float_valid" placeholder="Enter Delivery Charge" id="delivery_fee">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" onclick="UpdateInfo()" id="add_btn" class="btn btn-success"><i style="margin-right:4px;" class="fa fa-check-circle"></i>Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="app-assets/js/price_setting.js"></script>

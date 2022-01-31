@@ -35,6 +35,9 @@ app.get('/product', function(req, res) {
 app.get('/orders', function(req, res) {
     res.render('orders');
 });
+app.get('/price_setting', function(req, res) {
+    res.render('price_setting');
+});
 app.get('/terms_and_conditions', function(req, res) {
     res.render('terms_and_conditions');
 });
