@@ -46,6 +46,9 @@ $(async function () {
 })
 async function getDetails() {
     var users = ref(realdb, 'Users/');
+    var towns = ref(realdb, 'Towns/');
+    var parentcategories = ref(realdb, 'ParentCategories/');
+    var products = ref(realdb, 'Products/');
     try {
         onValue(users, (snapshot) => {
             var count2  = 0;
@@ -53,6 +56,27 @@ async function getDetails() {
                 count2 ++;
             })
             $('#UsersCount').html(count2);
+        });
+        onValue(towns, (snapshot) => {
+            var count2  = 0;
+            snapshot.forEach(function (doc) {
+                count2 ++;
+            })
+            $('#TownsCount').html(count2);
+        });
+        onValue(parentcategories, (snapshot) => {
+            var count2  = 0;
+            snapshot.forEach(function (doc) {
+                count2 ++;
+            })
+            $('#CategoriesCount').html(count2);
+        });
+        onValue(products, (snapshot) => {
+            var count2  = 0;
+            snapshot.forEach(function (doc) {
+                count2 ++;
+            })
+            $('#ProductsCount').html(count2);
         });
     }
     catch (ex) {

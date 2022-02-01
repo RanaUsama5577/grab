@@ -51,9 +51,9 @@ $(async function () {
     DataAppend();
 })
 async function createTable() {
-    const cats = ref(realdb, 'Products/');
+    const products = ref(realdb, 'Products/');
     try {
-        onValue(cats, (snapshot) => {
+        onValue(products, (snapshot) => {
             $("#table-1").DataTable().destroy();
             $("#dataTable").html('');
             if (snapshot) {
@@ -66,12 +66,14 @@ async function createTable() {
                     var data = doc.val();
                     
                     var category = data.category;
+                    var sub_cat_id = data.sub_cat_id;
                     var desc = data.desc;
                     var image = data.image;
                     var name = data.name;
                     var townname = data.townname;
                     var townid = data.townid;
                     var parentcategory = data.parentcategory;
+                    var cat_id = data.cat_id;
                     var checkerspayprice = data.checkerspayprice;
                     var picknpayprice = data.picknpayprice;
                     var sparsprice = data.sparsprice;
@@ -95,7 +97,8 @@ async function createTable() {
                     <input type="hidden" value="${townid}" id="t-${doc.key}" />
                     `;
                     var product = `<div class="d-flex justify-content-left align-items-center">
-                        <div class="avatar  me-1"><img src="${image}" class="avatar-content">
+                        <div class="avatar image-link me-1"><a class="image-popup-vertical-fit" href="${image}">
+                        <img src="${image}" class="avatar-content"></a>
                         </div>
                         <div class="d-flex flex-column">
                             <span class="emp_name text-truncate fw-bold">
@@ -115,20 +118,20 @@ async function createTable() {
                                 </h6>
                             </td>
                             <td class="">${desc}</td>
-                            <td data-town="${townname}"></td>
-                            <td data-parent="${parentcategory}"></td>
-                            <td data-cat="${category}"></td>
+                            <td data-town="${townid}"></td>
+                            <td data-parent="${cat_id}"></td>
+                            <td data-cat="${sub_cat_id}"></td>
                             <td class="">${info}</td>
                             <td class="">${action}</td>
                             </tr>`;
-                    if (!parentcatIds.includes(parentcategory)) {
-                        parentcatIds.push(parentcategory);
+                    if (!parentcatIds.includes(cat_id)) {
+                        parentcatIds.push(cat_id);
                     }
-                    if (!catIds.includes(category)) {
-                        catIds.push(category);
+                    if (!catIds.includes(sub_cat_id)) {
+                        catIds.push(sub_cat_id);
                     }
-                    if (!towns.includes(townname)) {
-                        towns.push(townname);
+                    if (!towns.includes(townid)) {
+                        towns.push(townid);
                     }
                     $('#dataTable').append(row);
                 })
@@ -149,9 +152,9 @@ async function GetCats(array,array2,array3) {
         if (snapshot) {
             snapshot.forEach(function (doc) {
                 var data = doc.val();
-                if(array2.includes(data.talentname)){
-                    $('[data-parent="'+data.talentname+'"]').html(data.talentname);
-                    array2.splice(array2.indexOf(data.talentname),1);
+                if(array2.includes(data.talentid)){
+                    $('[data-parent="'+data.talentid+'"]').html(data.talentname);
+                    array2.splice(array2.indexOf(data.talentid),1);
                 }
             })
         }
@@ -161,9 +164,9 @@ async function GetCats(array,array2,array3) {
         if (snapshot) {
             snapshot.forEach(function (doc) {
                 var data = doc.val();
-                if(array.includes(data.categoryname)){
-                    $('[data-cat="'+data.categoryname+'"]').html(data.categoryname);
-                    array.splice(array.indexOf(data.categoryname),1);
+                if(array.includes(data.categoryid)){
+                    $('[data-cat="'+data.categoryid+'"]').html(data.categoryname);
+                    array.splice(array.indexOf(data.categoryid),1);
                 }
             })
         }
@@ -173,12 +176,16 @@ async function GetCats(array,array2,array3) {
         if (snapshot) {
             snapshot.forEach(function (doc) {
                 var data = doc.val();
-                if(array3.includes(data.townname)){
-                    $('[data-town="'+data.townname+'"]').html(data.townname);
-                    array3.splice(array3.indexOf(data.townname),1);
+                if(array3.includes(data.townid)){
+                    $('[data-town="'+data.townid+'"]').html(data.townname);
+                    array3.splice(array3.indexOf(data.townid),1);
                 }
             })
             $('#table-1').DataTable();
+            $('.image-link').lightGallery({
+                thumbnail: true,
+                selector: 'a'
+            });
         }
     })
 }
@@ -237,6 +244,24 @@ function selectingCategory(element){
     var clone = $('#selectSubCategoryDefault').find('[label="'+cat_id+'"]').clone();
     $('#sub_cat_id').append(clone);
     $('#sub_cat_id').select2();
+}
+
+function ShowInfo(Id){
+    var checkerspayprice = $(`#cp-${Id}`).val();
+    var picknpayprice = $(`#pp-${Id}`).val();
+    var sparsprice = $(`#sp-${Id}`).val();
+    var isCheckersshow = $(`#ic-${Id}`).val();
+    var isPicknpayshow = $(`#ip-${Id}`).val();
+    var issparsshow = $(`#is-${Id}`).val();
+
+    $('#DescBody').html("");
+    $('#DescBody').append(`<p>Checkers Pay : ${checkerspayprice}</p>`);
+    $('#DescBody').append(`<p>Pick And Pay : ${picknpayprice}</p>`);
+    $('#DescBody').append(`<p>S Pars Pay : ${sparsprice}</p>`);
+    $('#DescBody').append(`<p>Is Checkers : ${isCheckersshow}</p>`);
+    $('#DescBody').append(`<p>Is Pick And Pay : ${isPicknpayshow}</p>`);
+    $('#DescBody').append(`<p>Is Pars Pay : ${issparsshow}</p>`);
+    $('#descModal').modal("show");
 }
 
 function showDeleteModal(Id) {
@@ -510,4 +535,14 @@ function getDataFromSimpleField(element) {
         return false;
     }
     return true;
+}
+function showDetails(items, id) {
+    var result;
+    items.some(function (item) {
+        if (item.townname === id) {
+            result = item;
+            return true;
+        }
+    });
+    return result;
 }

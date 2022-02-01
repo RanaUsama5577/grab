@@ -4,10 +4,19 @@
           <div class="col-12">
               <div class="card">
                   <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
-                      <button id="BackButton" style="color: #fff;margin-right: 12px;display:none;border-radius: 4px;" onclick="BackFunction()" class="btn btn-warning badge-shadow"><i class="fas fa-arrow-alt-circle-left"></i></button>
                       <div class="head-label">
                           <h6 class="mb-0 PageHeading">Users</h6>
                       </div>
+                      <div class="btn-group" style="margin-left: auto;" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="all" autocomplete="off" checked="">
+                        <label class="btn btn-outline-primary waves-effect" for="all">All</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="active_tab" autocomplete="off">
+                        <label class="btn btn-outline-primary waves-effect" for="active_tab">Active</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="block_tab" autocomplete="off">
+                        <label class="btn btn-outline-primary waves-effect" for="block_tab">Blocked</label>
+                    </div>
                   </div>
                   <div class="card-body">
                     <div id="">

@@ -1,3 +1,7 @@
+.btn-check:checked+.btn-outline-primary {
+    background-color: rgba(240, 103, 240, 0.2)!important;
+}
+
 .dropdown-item:active {
     color: #FFF;
     text-decoration: none;
