@@ -48,7 +48,6 @@ $(async function () {
     setNode = exportData.setNode;
     removeNode = exportData.removeNode;
     createTable();
-    DataAppend();
 })
 async function createTable() {
     const entities = ref(realdb, 'Orders/');
@@ -78,22 +77,22 @@ async function createTable() {
 
                     if(orderstatus == "Registered"){
                         var label = '<div class="custombadge-outline col-blue custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showMarkModal(\'' + doc.key + '\')" class="btn btn-primary badge-shadow">Mark it as prepare</a>';
+                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Preparing order\')" class="btn btn-primary badge-shadow">Mark it as prepare</a>';
                         var rowId = "1";
                     }
                     else if(orderstatus == "Preparing order"){
                         var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showMarkModal(\'' + doc.key + '\')" class="btn btn-primary badge-shadow">Mark it as dispatched</a>';
+                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Order Dispatched\')" class="btn btn-primary badge-shadow">Mark it as dispatched</a>';
                         var rowId = "2";
                     }
                     else if(orderstatus == "Order Dispatched"){
                         var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showMarkModal(\'' + doc.key + '\')" class="btn btn-primary badge-shadow">Mark it as on the way</a>';
+                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'On the way\'))" class="btn btn-primary badge-shadow">Mark it as on the way</a>';
                         var rowId = "3";
                     }
                     else if(orderstatus == "On the way"){
                         var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showMarkModal(\'' + doc.key + '\')" class="btn btn-primary badge-shadow">Mark it as delivered</a>';
+                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Delivered\'))" class="btn btn-primary badge-shadow">Mark it as delivered</a>';
                         var rowId = "4";
                     }
                     else if(orderstatus == "Delivered"){
@@ -223,3 +222,38 @@ $("#completed").click(function () {
     );
     table.draw();
 });
+
+
+function showUpdateModal(Id,status) {
+    Swal.fire({
+        title: 'Are you sure',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        showLoaderOnConfirm:true,
+        preConfirm:(login)=>{
+            return new Promise(async function (resolve, reject) {
+                UpdateEntity(Id,status);
+            })
+        },
+        confirmButtonText: 'Confirm!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            
+        }
+    })
+}
+function UpdateEntity(Id,status){
+    var ordersRef = ref(realdb, `Orders/${Id}`);
+    updateDoc(ordersRef,{
+        orderstatus:status,
+    })
+    .then(function(){
+        MixinSweet("updated Successfully","","success",2000);
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+}

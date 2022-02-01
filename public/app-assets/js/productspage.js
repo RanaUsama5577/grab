@@ -48,6 +48,7 @@ $(async function () {
     setNode = exportData.setNode;
     removeNode = exportData.removeNode;
     createTable();
+    DataAppend();
 })
 async function createTable() {
     const products = ref(realdb, 'Products/');
