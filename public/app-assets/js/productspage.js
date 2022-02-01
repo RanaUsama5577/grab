@@ -115,7 +115,7 @@ async function createTable() {
                                 </h6>
                             </td>
                             <td class="">${desc}</td>
-                            <td data-town="${townid}"></td>
+                            <td data-town="${townname}"></td>
                             <td data-parent="${parentcategory}"></td>
                             <td data-cat="${category}"></td>
                             <td class="">${info}</td>
@@ -127,8 +127,8 @@ async function createTable() {
                     if (!catIds.includes(category)) {
                         catIds.push(category);
                     }
-                    if (!towns.includes(townid)) {
-                        towns.push(townid);
+                    if (!towns.includes(townname)) {
+                        towns.push(townname);
                     }
                     $('#dataTable').append(row);
                 })
@@ -173,8 +173,8 @@ async function GetCats(array,array2,array3) {
         if (snapshot) {
             snapshot.forEach(function (doc) {
                 var data = doc.val();
-                if(array3.includes(data.id)){
-                    $('[data-town="'+data.id+'"]').html(data.townname);
+                if(array3.includes(data.townname)){
+                    $('[data-town="'+data.townname+'"]').html(data.townname);
                     array3.splice(array3.indexOf(data.townname),1);
                 }
             })
@@ -206,21 +206,36 @@ function DataAppend() {
             })
         }
     })
+    const childs = ref(realdb, 'Categories/');
+    onValue(childs, (snapshot) => {
+        if (snapshot) {
+            $('#selectSubCategoryDefault').html("");
+            snapshot.forEach(function (doc) {
+                var data = doc.val();
+                $('#selectSubCategoryDefault').append(`
+                <option label="${data.parent_category_id}" value="${doc.key}">${data.categoryname}</option>`);
+            })
+        }
+    })
+
 }
 
 function selectingTown(element){
-    $('#town_id').select2('destroy');
+    $('#cat_id').select2('destroy');
+    $('#sub_cat_id').select2('destroy');
+    $('#sub_cat_id').html(`<option value="">---Select Subcategory--</option>`);
     var town_id = $(element).val();
+    $('#cat_id').html(`<option value="">---Select Category--</option>`);
     var clone = $('#selectCategoryDefault').find('[label="'+town_id+'"]').clone();
-    $('#cat_id').html(clone);
+    $('#cat_id').append(clone);
     $('#cat_id').select2();
 }
 
-function selectingTown(element){
-    $('#sub_cat_id').select2('destroy');
+function selectingCategory(element){
     var cat_id = $(element).val();
+    $('#sub_cat_id').html(`<option value="">---Select Subcategory--</option>`);
     var clone = $('#selectSubCategoryDefault').find('[label="'+cat_id+'"]').clone();
-    $('#sub_cat_id').html(clone);
+    $('#sub_cat_id').append(clone);
     $('#sub_cat_id').select2();
 }
 
@@ -390,6 +405,7 @@ function UpdateData(image){
     var isCheckersshow = "yes";
     var isPicknpayshow = "yes";
     var issparsshow = "yes";
+    var form_type = $('#form_type').val();
     isCheckersshow = $('#is_checkers').is( ":checked" )?"yes":"no";
     isPicknpayshow = $('#is_pick_and_pay').is( ":checked" )?"yes":"no";
     issparsshow = $('#is_pars').is( ":checked" )?"yes":"no";
