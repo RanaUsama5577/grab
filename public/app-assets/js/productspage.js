@@ -48,7 +48,6 @@ $(async function () {
     setNode = exportData.setNode;
     removeNode = exportData.removeNode;
     createTable();
-    DataAppend();
 })
 async function createTable() {
     const products = ref(realdb, 'Products/');
@@ -106,8 +105,8 @@ async function createTable() {
                             </span>
                         </div>
                     </div>`
-                    var desc = '<a data-toggle="tooltip" title="Show Description" style="color: #fff;cursor:pointer;" onclick="showDescModal(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>' + input;
-                    var info = '<a data-toggle="tooltip" title="Show Info" style="color: #fff;cursor:pointer;" onclick="ShowInfo(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>' + input;
+                    var desc = '<a data-toggle="tooltip" title="Show Description" style="color: #fff;cursor:pointer;" onclick="showDescModal(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>' ;
+                    var info = '<a data-toggle="tooltip" title="Show Info" style="color: #fff;cursor:pointer;" onclick="ShowInfo(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>';
                     var action = '<a data-toggle="tooltip" title="Edit Product" style="color: #fff;cursor:pointer;margin-left:2px;" onclick="showEditModal(\'' + doc.key + '\')" class="btn btn-secondary badge-shadow"><i class="fas fa-edit"></i></a><a data-toggle="tooltip" title="Delete Subcategory" style="color: #fff;cursor:pointer;margin-left:2px;" onclick="showDeleteModal(\'' + doc.key + '\')" class="btn btn-danger badge-shadow"><i class="fas fa-trash"></i></a>' + input;
                     
                     var row = `<tr>
@@ -181,11 +180,11 @@ async function GetCats(array,array2,array3) {
                     array3.splice(array3.indexOf(data.townid),1);
                 }
             })
-            $('#table-1').DataTable();
             $('.image-link').lightGallery({
                 thumbnail: true,
                 selector: 'a'
             });
+            $('#table-1').DataTable();
         }
     })
 }
@@ -287,7 +286,7 @@ function showDeleteModal(Id) {
 }
 
 function DeleteEntity(Id){
-    var usersRef = ref(realdb, `Categories/${Id}`);
+    var usersRef = ref(realdb, `Products/${Id}`);
     removeNode(usersRef)
     .then(function(){
         MixinSweet("Deleted Successfully","","success",2000);

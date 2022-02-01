@@ -47,6 +47,9 @@ app.get('/about_app', function(req, res) {
 app.get('/faqs', function(req, res) {
     res.render('faqs');
 });
+app.get('/orders', function(req, res) {
+    res.render('orders');
+});
 app.get('/myprofile', function(req, res) {
     res.render('myprofile');
 });  

@@ -1,0 +1,65 @@
+<div class="content-body">
+    <section id="basic-datatable">
+      <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
+                    <div class="head-label">
+                        <h6 class="mb-0">Orders</h6>
+                    </div>
+                    <div class="btn-group" style="margin-left: auto;" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="all" autocomplete="off" checked="">
+                        <label class="btn btn-outline-primary waves-effect" for="all">All</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="registered" autocomplete="off">
+                        <label class="btn btn-outline-primary waves-effect" for="registered">Registered</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="preparing" autocomplete="off">
+                        <label class="btn btn-outline-primary waves-effect" for="preparing">Preparing</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="dispatched" autocomplete="off">
+                        <label class="btn btn-outline-primary waves-effect" for="dispatched">Dispatched</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="ontheway" autocomplete="off">
+                        <label class="btn btn-outline-primary waves-effect" for="ontheway">On the way</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="completed" autocomplete="off">
+                        <label class="btn btn-outline-primary waves-effect" for="completed">Completed</label>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="">
+                      <div class="">
+                        <table id="table-1" class="datatables-basic table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Customer Contact</th>
+                                    <th>Customer Name</th>
+                                    <th>Date</th>
+                                    <th>Product Detail</th>
+                                    <th>Delivery Charges</th>
+                                    <th>Over Total</th>
+                                    <th>Product Not Avail Case</th>
+                                    <th>Service Fee</th>
+                                    <th>Order Time</th>
+                                    <th>Time</th>
+                                    <th>Town</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTable">
+
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+</div>
+<!-- END: Content-->
+
+<script src="app-assets/js/orderspage.js"></script>
