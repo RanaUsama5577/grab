@@ -76,17 +76,21 @@ async function createTable() {
                     var picknpayprice = data.picknpayprice;
                     var sparsprice = data.sparsprice;
 
+                    var isCheckersshow = data.isCheckersshow;
+                    var isPicknpayshow = data.isPicknpayshow;
+                    var issparsshow = data.issparsshow;
+
                     var input =  `<input type="hidden" value="${category}" id="c-${doc.key}" />
                     <input type="hidden" value="${desc}" id="d-${doc.key}" />
                     <input type="hidden" value="${image}" id="i-${doc.key}" />
                     <input type="hidden" value="${name}" id="n-${doc.key}" />
                     <input type="hidden" value="${parentcategory}" id="p-${doc.key}" />
-                    <input type="hidden" value="${checkerspayprice}" id="t-${doc.key}" />
-                    <input type="hidden" value="${picknpayprice}" id="t-${doc.key}" />
-                    <input type="hidden" value="${sparsprice}" id="t-${doc.key}" />
-                    <input type="hidden" value="${sparsprice}" id="t-${doc.key}" />
-                    <input type="hidden" value="${sparsprice}" id="t-${doc.key}" />
-                    <input type="hidden" value="${sparsprice}" id="t-${doc.key}" />
+                    <input type="hidden" value="${checkerspayprice}" id="cp-${doc.key}" />
+                    <input type="hidden" value="${picknpayprice}" id="pp-${doc.key}" />
+                    <input type="hidden" value="${isCheckersshow}" id="ic-${doc.key}" />
+                    <input type="hidden" value="${isPicknpayshow}" id="ip-${doc.key}" />
+                    <input type="hidden" value="${issparsshow}" id="is-${doc.key}" />
+                    <input type="hidden" value="${sparsprice}" id="sp-${doc.key}" />
                     <input type="hidden" value="${townname}" id="t-${doc.key}" />
                     <input type="hidden" value="${townid}" id="t-${doc.key}" />
                     `;
@@ -204,12 +208,20 @@ function DataAppend() {
     })
 }
 
-function GetCatAppend(element){
-    $('#cat_id').select2('destroy');
+function selectingTown(element){
+    $('#town_id').select2('destroy');
     var town_id = $(element).val();
     var clone = $('#selectCategoryDefault').find('[label="'+town_id+'"]').clone();
     $('#cat_id').html(clone);
     $('#cat_id').select2();
+}
+
+function selectingTown(element){
+    $('#sub_cat_id').select2('destroy');
+    var cat_id = $(element).val();
+    var clone = $('#selectSubCategoryDefault').find('[label="'+cat_id+'"]').clone();
+    $('#sub_cat_id').html(clone);
+    $('#sub_cat_id').select2();
 }
 
 function showDeleteModal(Id) {
@@ -255,9 +267,9 @@ function addNewModal() {
     $("#Form")[0].reset();
     $('#addModal').modal("show");
     $('#form_type').val("1");
-    $('#selectTownDiv').show();
-    $('#selectCategoryDiv').show();
-    $('#myModalLabel').html("Add Category");
+    $('.selectionDivs').show();
+    $('#myModalLabel').html("Add Product");
+    var first = new FileUploadWithPreview('myFirstImage');
     $('#town_id').select2();
 }
 
@@ -265,75 +277,186 @@ function showEditModal(Id){
     $("#Form")[0].reset();
     $('#form_type').val("2");
     $('#doc_id').val(Id);
-    $('#myModalLabel').html("Edit Subcategory");
-    $('#selectTownDiv').hide();
-    $('#selectCategoryDiv').hide();
+    $('#myModalLabel').html("Edit Product");
+    var first = new FileUploadWithPreview('myFirstImage');
+    
+    $('.selectionDivs').hide();
     var name = $(`#n-${Id}`).val();
-    $('#catName').val(name);
+    var desc = $(`#d-${Id}`).val();
+    var image = $(`#i-${Id}`).val();
+    var checkerspayprice = $(`#cp-${Id}`).val();
+    var picknpayprice = $(`#pp-${Id}`).val();
+    var sparsprice = $(`#sp-${Id}`).val();
+    var isCheckersshow = $(`#ic-${Id}`).val();
+    var isPicknpayshow = $(`#ip-${Id}`).val();
+    var issparsshow = $(`#is-${Id}`).val();
+    $('.custom-file-container__image-preview').attr('style', "background-image:url('" + image + "')");
+    $('#productName').val(name);
+    $('#productDesc').val(desc);
+    $('#checkerpayprice').val(checkerspayprice);
+    $('#pickpayprice').val(picknpayprice);
+    $('#sparsprice').val(sparsprice);
+    isCheckersshow == "yes"?$('#is_checkers').prop('checked',true):$('#is_checkers').prop('checked',false);
+    isPicknpayshow == "yes"?$('#is_pick_and_pay').prop('checked',true):$('#is_pick_and_pay').prop('checked',false);
+    issparsshow == "yes"?$('#is_pars').prop('checked',true):$('#is_pars').prop('checked',false);
+
     $('#addModal').modal("show");
 }
 
 $('#Form').submit(function(e){
-e.preventDefault();
+    e.preventDefault();
 })
-function AddCategory() {
-    var town_id = $('#town_id').val();
-    var cat_id = $('#cat_id').val();
-    var catName = $('#catName').val();
-    var parentCatName = $('#cat_id').find('[value="'+cat_id+'"]').html();
+function AddProduct() {
     var bool = true;
     var GetAllValues = [];
+    var product_image = $('#file').val();
     var form_type = $('#form_type').val();
 
-    $('#Form').find(('.form-control')).each(function (i, obj) {
-        var values = getDataFromSimpleField($(obj));
-        GetAllValues.push(values);
-        if (GetAllValues.includes(false)) {
-            bool = false;
-        }
-    })
+    if(form_type == 1){
+        $('#Form').find(('.form-control,.custom-file-container__custom-file__custom-file-input')).each(function (i, obj) {
+            var values = getDataFromSimpleField($(obj));
+            GetAllValues.push(values);
+            if (GetAllValues.includes(false)) {
+                bool = false;
+            }
+        })
+    }
+    else{
+        $('#Form').find(('.form-control')).each(function (i, obj) {
+            var values = getDataFromSimpleField($(obj));
+            GetAllValues.push(values);
+            if (GetAllValues.includes(false)) {
+                bool = false;
+            }
+        })
+    }
     
     if (bool == false) {
         MixinSweet("Please fill all the required fields", "", "error", 2000);
     }
     else {
         $('#add_btn').addClass('btn-progress');
-        if (form_type == '1') {
-            var cat_reference = GetTimeStamp();
-            var catref = ref(realdb, `Categories/${cat_reference}`);
-            setNode(catref,{
-                categoryid: cat_reference,
-                categoryname: catName,
-                parentcategoryname: parentCatName,
-                parent_category_id: cat_id,
-                townid: town_id,
-            })
-                .then(function(){
-                    $('#add_btn').removeClass('btn-progress');
-                    MixinSweet("Added Successfully","","success",2000);
-                    $("#Form")[0].reset();
-                    $('#addModal').modal("hide");
-                })
-                .catch(function(error){
-                    console.log(error);
-                })
+        if (product_image != "") {
+            $("#progess_section").show();
+            var file = $("#file").get(0).files[0];
+            var name = (+new Date()) + '-' + file.name;
+            var metadata = { contentType: file.type };
+            var fileName = name;
+            var storageRef = storage;
+            var timestamp = new Date().getTime().toString();
+            var ref = storageRef.ref(storageRef.getStorage(), 'images/' + timestamp+'/');
+            var uploadTask = storageRef.uploadBytesResumable(ref, file);
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    var fixval = progress.toFixed(0);
+                    $("#bar").html(fixval + "%");
+                    $("#bar").css('width', progress + '%').attr('aria-valuenow', progress);
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                (error) => {
+                    sweetMessage("Warning", error.message, "error");
+                },
+                () => {
+                    storageRef.getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        UpdateData(downloadURL);
+                        $("#progess_section").hide();
+                        console.log('File available at', downloadURL);
+                    });
+                }
+            );
         }
         else {
-            var Id = $('#doc_id').val();
-            var catref = ref(realdb, `Categories/${Id}`);
-            updateNode(catref,{
-                categoryname: catName,
-            })
-                .then(function(){
-                    $('#add_btn').removeClass('btn-progress');
-                    MixinSweet("Updated Successfully","","success",2000);
-                    $("#Form")[0].reset();
-                    $('#addModal').modal("hide");
-                })
-                .catch(function(error){
-                    console.log(error);
-                })
+            var doc_id = $('#doc_id').val();
+            var image = $('#i-' + doc_id).val();
+            UpdateData(image);
         }
+    }
+}
+function UpdateData(image){
+    var name = $('#productName').val();
+    var desc = $('#productDesc').val();
+    var checkerspayprice = $('#checkerpayprice').val();
+    var picknpayprice = $('#pickpayprice').val();
+    var sparsprice = $('#sparsprice').val();
+    var isCheckersshow = "yes";
+    var isPicknpayshow = "yes";
+    var issparsshow = "yes";
+    isCheckersshow = $('#is_checkers').is( ":checked" )?"yes":"no";
+    isPicknpayshow = $('#is_pick_and_pay').is( ":checked" )?"yes":"no";
+    issparsshow = $('#is_pars').is( ":checked" )?"yes":"no";
+
+
+    if (form_type == '1') {
+        var town_id = $('#town_id').val();
+        var cat_id = $('#cat_id').val();
+        var sub_cat_id = $('#sub_cat_id').val();
+        var town_name = $('#town_id').find('[value="'+town_id+'"]').html();
+        var cat_name = $('#cat_id').find('[value="'+cat_id+'"]').html();
+        var sub_cat_name = $('#sub_cat_id').find('[value="'+sub_cat_id+'"]').html();
+
+
+        var product_reference = GetTimeStamp();
+        var productref = ref(realdb, `Products/${product_reference}`);
+        setNode(productref,{
+            productid: product_reference,
+            name: name,
+            cat_id: cat_id,
+            category:sub_cat_name,
+            sub_cat_id: sub_cat_id,
+            townid: town_id,
+            townname:town_name,
+            desc:desc,
+            image:image,
+            isCheckersshow:isCheckersshow,
+            isPicknpayshow:isPicknpayshow,
+            issparsshow:issparsshow,
+            parentcategory:cat_name,
+            checkerspayprice:checkerspayprice,
+            picknpayprice:picknpayprice,
+            sparsprice:sparsprice,
+        })
+            .then(function(){
+                $('#add_btn').removeClass('btn-progress');
+                MixinSweet("Added Successfully","","success",2000);
+                $("#Form")[0].reset();
+                $('#addModal').modal("hide");
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+    }
+    else {
+        var Id = $('#doc_id').val();
+        var productref = ref(realdb, `Products/${Id}`);
+        updateNode(productref,{
+            name: name,
+            desc:desc,
+            image:image,
+            isCheckersshow:isCheckersshow,
+            isPicknpayshow:isPicknpayshow,
+            issparsshow:issparsshow,
+            checkerspayprice:checkerspayprice,
+            picknpayprice:picknpayprice,
+            sparsprice:sparsprice,
+        })
+            .then(function(){
+                $('#add_btn').removeClass('btn-progress');
+                MixinSweet("Updated Successfully","","success",2000);
+                $("#Form")[0].reset();
+                $('#addModal').modal("hide");
+            })
+            .catch(function(error){
+                console.log(error);
+            })
     }
 }
 function getDataFromSimpleField(element) {
