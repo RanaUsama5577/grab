@@ -19,6 +19,10 @@ var get;
 var child;
 var onValue;
 var runTransaction;
+
+var equalTo;
+var orderByChild;
+var queryReal;
 $(async function () {
     await import('/app-assets/js/firebase.js').then(function (exports) {
         exportData = exports;
@@ -47,14 +51,18 @@ $(async function () {
     updateNode = exportData.updateNode;
     setNode = exportData.setNode;
     removeNode = exportData.removeNode;
+    equalTo = exportData.equalTo;
+    orderByChild = exportData.orderByChild;
+    queryReal = exportData.queryReal;
     createTable();
 })
 async function createTable() {
-    const entities = ref(realdb, 'Orders/');
+    const entities = queryReal(ref(realdb, '/Orders'), orderByChild('orderstatus'), equalTo("Delivered"));
     try {
         onValue(entities, (snapshot) => {
             $("#table-1").DataTable().destroy();
             $("#dataTable").html('');
+            var priceAll = 0;
             if (snapshot) {
                 var count = 0;
                 var towns = [];
@@ -74,48 +82,21 @@ async function createTable() {
                     var servicefee = data.servicefee;
                     var time = data.time;
                     var townid = data.townid;
-
-                    if(orderstatus == "Registered"){
-                        var label = '<div class="custombadge-outline col-blue custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Preparing order\')" class="btn btn-primary badge-shadow">Mark it as preparing</a>';
-                        var rowId = "1";
-                    }
-                    else if(orderstatus == "Preparing order"){
-                        var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Order Dispatched\')" class="btn btn-primary badge-shadow">Mark it as dispatched</a>';
-                        var rowId = "2";
-                    }
-                    else if(orderstatus == "Order Dispatched"){
-                        var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'On the way\')" class="btn btn-primary badge-shadow">Mark it as on the way</a>';
-                        var rowId = "3";
-                    }
-                    else if(orderstatus == "On the way"){
-                        var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Delivered\')" class="btn btn-primary badge-shadow">Mark it as delivered</a>';
-                        var rowId = "4";
-                    }
-                    else if(orderstatus == "Delivered"){
-                        var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '';
-                        var rowId = "5";
-                    }
+                    var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
                     var products = '<a data-toggle="tooltip" title="Show Products" style="color: #fff;cursor:pointer;" onclick="showProducts(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>';
-                    
-                    var row = `<tr data-row="${rowId}">
+                    priceAll += parseFloat(overTotal);
+                    var row = `<tr>
                             <td>${customercontact}</td>
                             <td class="">${customername}</td>
                             <td class="">${date}</td>
                             <td class="">${products}</td>
                             <td class="">${deliverycharges}</td>
                             <td class="">${overTotal}</td>
-                            <td class="">${productnotavailcase}</td>
                             <td class="">${servicefee}</td>
                             <td class="">${ordertime}</td>
                             <td class="">${time}</td>
                             <td data-town="${townid}"></td>
                             <td class="">${label}</td>
-                            <td class="">${action}</td>
                             </tr>`;
                     if (!towns.includes(townid)) {
                         towns.push(townid);
@@ -126,6 +107,7 @@ async function createTable() {
             else {
                 MixinSweet('No data!', 'There is no data to show', "info", 2000);
             }
+            $('#TotalPrice,#TotalPrice2').html("$" + priceAll);
             GetTowns(towns);
         });
     }
@@ -149,79 +131,6 @@ async function GetTowns(array) {
     })
 }
 
-
-$("#all").click(function () {
-    $('.btn-check').removeClass('active');
-    $('#all').addClass('active');
-    var table = $('#table-1').DataTable();
-    $.fn.dataTable.ext.search.pop();
-    table.draw();
-});
-$("#registered").click(function () {
-    $('.btn-check').removeClass('active');
-    $('#registered').addClass('active');
-    var table = $('#table-1').DataTable();
-    $.fn.dataTable.ext.search.pop();
-    table.draw();
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            return $(table.row(dataIndex).node()).attr('data-row') == "1";
-        }
-    );
-    table.draw();
-});
-$("#preparing").click(function () {
-    $('.btn-check').removeClass('active');
-    $('#preparing').addClass('active');
-    var table = $('#table-1').DataTable();
-    $.fn.dataTable.ext.search.pop();
-    table.draw();
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            return $(table.row(dataIndex).node()).attr('data-row') == "2";
-        }
-    );
-    table.draw();
-});
-$("#dispatched").click(function () {
-    $('.btn-check').removeClass('active');
-    $('#dispatched').addClass('active');
-    var table = $('#table-1').DataTable();
-    $.fn.dataTable.ext.search.pop();
-    table.draw();
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            return $(table.row(dataIndex).node()).attr('data-row') == "3";
-        }
-    );
-    table.draw();
-});
-$("#ontheway").click(function () {
-    $('.btn-check').removeClass('active');
-    $('#ontheway').addClass('active');
-    var table = $('#table-1').DataTable();
-    $.fn.dataTable.ext.search.pop();
-    table.draw();
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            return $(table.row(dataIndex).node()).attr('data-row') == "4";
-        }
-    );
-    table.draw();
-});
-$("#completed").click(function () {
-    $('.btn-check').removeClass('active');
-    $('#completed').addClass('active');
-    var table = $('#table-1').DataTable();
-    $.fn.dataTable.ext.search.pop();
-    table.draw();
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            return $(table.row(dataIndex).node()).attr('data-row') == "4";
-        }
-    );
-    table.draw();
-});
 function showProducts(Id){
     const entities = ref(realdb, 'Ordersdetail/' + Id);
     try {
@@ -271,39 +180,3 @@ function showProducts(Id){
         console.log(ex);
     }
 }
-function showUpdateModal(Id,status) {
-    Swal.fire({
-        title: 'Are you sure',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        showLoaderOnConfirm:true,
-        preConfirm:(login)=>{
-            return new Promise(async function (resolve, reject) {
-                UpdateEntity(Id,status);
-            })
-        },
-        confirmButtonText: 'Confirm!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            
-        }
-    })
-}
-function UpdateEntity(Id,status){
-    var ordersRef = ref(realdb, `Orders/${Id}`);
-    updateNode(ordersRef,{
-        orderstatus:status,
-    })
-    .then(function(){
-        MixinSweet("updated Successfully","","success",2000);
-    })
-    .catch(function(error){
-        console.log(error);
-    })
-}
-
-
-

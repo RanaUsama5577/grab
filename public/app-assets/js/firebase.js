@@ -45,4 +45,6 @@ export let runTransaction   = realtimeDb.runTransaction;
 export let updateNode   = realtimeDb.update;
 export let setNode   = realtimeDb.set;
 export let removeNode   = realtimeDb.remove;
-
+export let queryReal   = realtimeDb.query;
+export let orderByChild   = realtimeDb.orderByChild;
+export let equalTo   = realtimeDb.equalTo;

@@ -50,6 +50,9 @@ app.get('/faqs', function(req, res) {
 app.get('/orders', function(req, res) {
     res.render('orders');
 });
+app.get('/payments', function(req, res) {
+    res.render('payments');
+});
 app.get('/myprofile', function(req, res) {
     res.render('myprofile');
 });  

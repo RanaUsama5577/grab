@@ -5,31 +5,17 @@
               <div class="card">
                   <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
                     <div class="head-label">
-                        <h6 class="mb-0">Orders</h6>
+                        <h6 class="mb-0">Completed Orders</h6>
                     </div>
-                    <div class="btn-group" style="margin-left: auto;" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="all" autocomplete="off" checked="">
-                        <label class="btn btn-outline-primary waves-effect" for="all">All</label>
-
-                        <input type="radio" class="btn-check" name="btnradio" id="registered" autocomplete="off">
-                        <label class="btn btn-outline-primary waves-effect" for="registered">Registered</label>
-
-                        <input type="radio" class="btn-check" name="btnradio" id="preparing" autocomplete="off">
-                        <label class="btn btn-outline-primary waves-effect" for="preparing">Preparing</label>
-
-                        <input type="radio" class="btn-check" name="btnradio" id="dispatched" autocomplete="off">
-                        <label class="btn btn-outline-primary waves-effect" for="dispatched">Dispatched</label>
-
-                        <input type="radio" class="btn-check" name="btnradio" id="ontheway" autocomplete="off">
-                        <label class="btn btn-outline-primary waves-effect" for="ontheway">On the way</label>
-
-                        <input type="radio" class="btn-check" name="btnradio" id="completed" autocomplete="off">
-                        <label class="btn btn-outline-primary waves-effect" for="completed">Completed</label>
+                    <div style="margin-left: auto;">
+                        <span>Total Earnings:</span>
+                        <span style="font-weight: 800;" id="TotalPrice2"></span>
                     </div>
                   </div>
                   <div class="card-body">
                     <div id="">
                       <div class="">
+                        
                         <table id="table-1" class="datatables-basic table dt-responsive">
                             <thead>
                                 <tr>
@@ -39,19 +25,21 @@
                                     <th>Product Detail</th>
                                     <th>Delivery Charges</th>
                                     <th>Over Total</th>
-                                    <th>Product Not Avail Case</th>
                                     <th>Service Fee</th>
                                     <th>Order Time</th>
                                     <th>Time</th>
                                     <th>Town</th>
                                     <th>Status</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="dataTable">
 
                             </tbody>
                         </table>
+                        <div style="text-align: right;">
+                            <span>Total Earnings:</span>
+                            <span style="font-weight: 800;" id="TotalPrice"></span>
+                        </div>
                       </div>
                     </div>  
                   </div>
@@ -85,6 +73,7 @@
                       </thead>
                       <tbody id="dataTable2">
                       </tbody>
+                      
                   </table>
               </div>
           </div>
@@ -92,6 +81,6 @@
   </div>
 </div>
 
-<script src="app-assets/js/orderspage.js"></script>
+<script src="app-assets/js/paymentspage.js"></script>
 
 
