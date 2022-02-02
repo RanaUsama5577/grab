@@ -217,7 +217,7 @@ $("#completed").click(function () {
     table.draw();
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            return $(table.row(dataIndex).node()).attr('data-row') == "4";
+            return $(table.row(dataIndex).node()).attr('data-row') == "5";
         }
     );
     table.draw();
