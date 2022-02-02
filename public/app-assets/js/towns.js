@@ -212,7 +212,7 @@ function AddTown() {
                 .then(function(){
                     MixinSweet("Updated Successfully","","success",2000);
                     $("#Form")[0].reset();
-                    $('#addModal').modal("hide");s
+                    $('#addModal').modal("hide");
                 })
                 .catch(function(error){
                     console.log(error);
@@ -257,15 +257,35 @@ function getDataFromSimpleField(element) {
     return true;
 }
 function showTimeSlotModal(Id){
+    $('#doc_id').val(Id);
     const towns = ref(realdb, 'Towns/' + Id);
     onValue(towns, (snapshot) => {
         if (snapshot) {
             var data = snapshot.val();
             var timeSlots = data.time_slots??[];
             $('#TimeSlotDesc').html("");
+            $('#AppendSlot').html("");
             timeSlots.forEach(function(item){
-                $('#TimeSlotDesc').append(item);
+                $('#TimeSlotDesc').append(`<p>${item}</p>`);
+                var slot = `
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Time Slot<label>
+                            <input type="text" class="form-control timeSlots" value="${item}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="margin-top: 21px;">
+                        <button class="btn btn-primary" onclick="RemoveThis(this)" type="button">
+                            Remove
+                        </button>
+                    </div>
+                </div>
+                `;
+                $('#AppendSlot').append(slot);
             })
+            $('#editTimeSlot').hide();
+            $('#editButtonDiv').show();
             $('#timeSlotModal').modal('show');
         }
     })
@@ -281,11 +301,11 @@ function EditTimeSlots(){
 }
 function AddNewSlot(){
     var slot = `
-    <div class="row mt-3">
+    <div class="row mt-2">
         <div class="col-md-6">
             <div class="form-group">
                 <label>Time Slot<label>
-                <input type="text" class="form-control"/>
+                <input type="text" class="form-control timeSlots"/>
             </div>
         </div>
         <div class="col-md-6" style="margin-top: 21px;">
@@ -297,7 +317,28 @@ function AddNewSlot(){
     `;
     $('#AppendSlot').append(slot);
 }
-
 function RemoveThis(element){
     $(element).parent().closest('.row').remove();
+}
+function UpdateTimeSlots(){
+    var doc_id = $('#doc_id').val();
+    var Ids = [];
+    $('.timeSlots').each(function(index,obj){
+        var s = $(obj).val();
+        Ids.push(s);
+    });
+    var townref = ref(realdb, `Towns/${doc_id}`);
+    $('#update_time_slots').addClass('btn-progress');
+    updateNode(townref,{
+        time_slots: Ids,
+    })
+        .then(function(){
+            $('#update_time_slots').removeClass('btn-progress');
+            MixinSweet("Updated Successfully","","success",2000);
+            $('#editTimeSlot').hide();
+            $('#editButtonDiv').show();
+        })
+        .catch(function(error){
+            console.log(error);
+        })
 }
