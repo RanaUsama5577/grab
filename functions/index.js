@@ -103,6 +103,12 @@ app.get('/orders', function(req, res) {
 app.get('/payments', function(req, res) {
     res.render('payments');
 });
+app.get('/discount_setting', function(req, res) {
+    res.render('discount_setting');
+});
+app.get('/payments', function(req, res) {
+    res.render('payments');
+});
 app.get('/myprofile', function(req, res) {
     res.render('myprofile');
 });  

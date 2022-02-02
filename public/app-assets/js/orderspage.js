@@ -304,6 +304,3 @@ function UpdateEntity(Id,status){
         console.log(error);
     })
 }
-
-
-
