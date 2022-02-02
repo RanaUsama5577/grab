@@ -70,6 +70,7 @@ async function createTable() {
                     `;
                     //Location
                     var location = '<a data-bs-toggle="modal" data-bs-target="#mapModal" data-lat="'+townLatitude+'" data-lng="'+townlogitude+'" data-toggle="tooltip" title="Show Location" style="color: #fff;cursor:pointer;margin-left:2px;" class="btn btn-primary badge-shadow"><i class="fas fa-map-pin"></i></a>';
+                    var time_slots = '<a data-toggle="tooltip" title="Show Time Slots" style="color: #fff;cursor:pointer;margin-left:2px;" onclick="showTimeSlotModal(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>';
                     //Edit And Delete Town
                     var edit = '<a data-toggle="tooltip" title="Edit Town" style="color: #fff;cursor:pointer;" onclick="showEditModal(\'' + doc.key + '\')" class="btn btn-secondary badge-shadow"><i class="fas fa-edit"></i></a>' + inputs;
                     var action = '<a data-toggle="tooltip" title="Delete Town" style="color: #fff;cursor:pointer;margin-left:2px;" onclick="showDeleteModal(\'' + doc.key + '\')" class="btn btn-danger badge-shadow"><i class="fas fa-trash"></i></a>';
@@ -82,6 +83,7 @@ async function createTable() {
                             </td>
                             <td class="">${townname}</td>
                             <td class="">${location}</td>
+                            <td class="">${time_slots}</td>
                             <td class="">${edit + action}</td>
                             </tr>`;
                     $('#dataTable').append(row);
@@ -253,4 +255,49 @@ function getDataFromSimpleField(element) {
         return false;
     }
     return true;
+}
+function showTimeSlotModal(Id){
+    const towns = ref(realdb, 'Towns/' + Id);
+    onValue(towns, (snapshot) => {
+        if (snapshot) {
+            var data = snapshot.val();
+            var timeSlots = data.time_slots??[];
+            $('#TimeSlotDesc').html("");
+            timeSlots.forEach(function(item){
+                $('#TimeSlotDesc').append(item);
+            })
+            $('#timeSlotModal').modal('show');
+        }
+    })
+}
+
+function hideEditSection(){
+    $('#editTimeSlot').hide();
+    $('#editButtonDiv').show();
+}
+function EditTimeSlots(){
+    $('#editTimeSlot').show();
+    $('#editButtonDiv').hide();
+}
+function AddNewSlot(){
+    var slot = `
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Time Slot<label>
+                <input type="text" class="form-control"/>
+            </div>
+        </div>
+        <div class="col-md-6" style="margin-top: 21px;">
+            <button class="btn btn-primary" onclick="RemoveThis(this)" type="button">
+                Remove
+            </button>
+        </div>
+    </div>
+    `;
+    $('#AppendSlot').append(slot);
+}
+
+function RemoveThis(element){
+    $(element).parent().closest('.row').remove();
 }
