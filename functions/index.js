@@ -1,5 +1,8 @@
 const functions = require("firebase-functions"); 
+const admin = require("firebase-admin"); 
+admin.initializeApp();
 var express = require('express');
+const db = admin.firestore();
 var app = express();
 
 var expressLayouts = require('express-ejs-layouts');
@@ -20,6 +23,53 @@ app.get('/dashboard', function(req, res) {
 app.get('/users', function(req, res) {
     res.render('users');
 }); 
+app.get('/block_unblock_user', async function(req, res) {
+    try{
+        var header = req.get('authorization');
+        var adminHeader = header.split(" ");
+        if(adminHeader.length <= 1){
+            res.status(401).send("unauthenticated");
+        }
+        else {
+            var adminId = adminHeader[1];
+            await admin.auth().getUser(adminId).then(async(userRecord) => {
+                var email = userRecord.email;
+                console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+                await db.collection("admin").doc(email).get()
+                .then(function(docSnapshot){
+                    if(docSnapshot.exists){
+    
+                    }
+                    else{
+                        res.status(401).send("unauthenticated");
+                    }
+                })
+                .catch((error) => {
+                    res.status(401).send("unauthenticated");
+                  });
+              })
+              .catch((error) => {
+                res.status(401).send("unauthenticated");
+              });
+        }
+        var userId = req.query.userId;
+        var status = req.query.status;
+        console.log(status);
+        var s = status == 0?true:false;
+        return admin.auth().updateUser(userId, {disabled: s})
+        .then(function(){
+            console.log("updated");
+            res.status(200).send("updated");
+        })
+        .catch(function(error){
+            console.log("error",error);
+            res.status(401).send(error.message);
+        });
+    }
+    catch(ex){
+        res.status(401).send("unauthenticated");
+    }
+});
 app.get('/towns', function(req, res) {
     res.render('towns');
 }); 

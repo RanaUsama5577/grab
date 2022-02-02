@@ -204,7 +204,7 @@ function showBlockModal(Id) {
         confirmButtonText: 'Confirm!'
     }).then((result) => {
         if (result.isConfirmed) {
-            
+            MixinSweet("Suspend Successfully","","success",2000);
         }
     })
 }
@@ -214,8 +214,16 @@ function BlockEntity(Id){
     updateNode(usersRef,{
         status:0
     })
-        .then(function(){
-            MixinSweet("Suspend Successfully","","success",2000);
+        .then( async function(){
+            var getaUth = auth.getAuth();
+            const user = getaUth.currentUser;
+            var res = await getResponseFromUrl("Get","/block_unblock_user?userId="+ Id + '&status=' + 0 ,null,true,user.uid);
+            if(res.code == 200){
+                
+            }
+            else{
+                sweetMessage(res.code,res.data,"success");
+            }
         })
         .catch(function(error){
             console.log(error);
@@ -224,7 +232,7 @@ function BlockEntity(Id){
 
 function showUnBlockModal(Id) {
     Swal.fire({
-        title: 'Are you sure you want to activate frame?',
+        title: 'Are you sure you want to unblock user?',
         text: "",
         icon: 'warning',
         showCancelButton: true,
@@ -239,7 +247,7 @@ function showUnBlockModal(Id) {
         confirmButtonText: 'Confirm!'
     }).then((result) => {
         if (result.isConfirmed) {
-            
+            MixinSweet("Unsuspend Successfully","","success",2000);
         }
     })
 }
@@ -249,8 +257,15 @@ function UnBlockEntity(Id){
     updateNode(usersRef,{
         status:1
     })
-        .then(function(){
-            MixinSweet("Unsuspended Successfully","","success",2000);
+        .then(async function(){
+            var getaUth = auth.getAuth();
+            const user = getaUth.currentUser;
+            var res = await getResponseFromUrl("Get","/block_unblock_user?userId="+ Id + '&status=' + 1 ,null,true,user.uid);
+            if(res.code == 200){
+            }
+            else{
+                sweetMessage(res.code,res.data,"success");
+            }
         })
         .catch(function(error){
             console.log(error);
@@ -261,4 +276,30 @@ function showAddressModal(Id){
     var address = $(`#a-${Id}`).val();
     $('#Address').html(address);
     $('#addressModal').modal("show");
+}
+
+var getResponseFromUrl = function (requestType, requestUrl, requestData,async,header) {
+    return $.ajax({
+        type: requestType,
+        url: requestUrl,
+        data: requestData,
+        data: requestData,
+        async: async,
+        processData: false,
+        contentType: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + header);
+        },
+        success: function(data, textStatus, xhr) {
+            console.log(xhr.status);
+            var reponse = {
+                code :xhr.status,
+                data:data,
+            }
+            return reponse;
+        },
+        error: function (error) {
+            return error;
+        },
+    });
 }
