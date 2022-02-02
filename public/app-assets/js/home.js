@@ -189,10 +189,6 @@ function AppendChart(){
             RevenueChart(jant, febt, mart, aprt, mayt, junet, julyt, augt, septt, octt, novt, dect);
         }
     })
-        
-
-
-    
 }
 function RevenueChart(jant, febt, mart, aprt, mayt, junet, julyt, augt, septt, octt, novt, dect) {
     var lastMonth = new Date(); var onePastlastMonth = new Date(); var twoPastlastMonth = new Date(); var threePastlastMonth = new Date();
@@ -217,7 +213,7 @@ function RevenueChart(jant, febt, mart, aprt, mayt, junet, julyt, augt, septt, o
             tooltips: { shadowOffsetX: 1, shadowOffsetY: 1, shadowBlur: 8, shadowColor: g, backgroundColor: window.colors.solid.white, titleFontColor: window.colors.solid.black, bodyFontColor: window.colors.solid.black },
             scales: {
                 xAxes: [{ display: !0, gridLines: { display: !0, color: k, zeroLineColor: k }, scaleLabel: { display: !1 }, ticks: { fontColor: x } }],
-                yAxes: [{ display: !0, gridLines: { color: k, zeroLineColor: k }, ticks: { stepSize: 100, min: 0, max: 400, fontColor: x } }],
+                yAxes: [{ display: !0, gridLines: { color: k, zeroLineColor: k }, ticks: { min: 0, fontColor: x } }],
             },
         },
         data: {

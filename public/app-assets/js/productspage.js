@@ -148,7 +148,7 @@ async function createTable() {
 }
 async function GetCats(array,array2,array3) {
     const cats = ref(realdb, 'ParentCategories/');
-    await onValue(cats, (snapshot) => {
+    await onValue(cats, async (snapshot) => {
         if (snapshot) {
             snapshot.forEach(function (doc) {
                 var data = doc.val();
@@ -157,35 +157,36 @@ async function GetCats(array,array2,array3) {
                     array2.splice(array2.indexOf(data.talentid),1);
                 }
             })
-        }
-    })
-    const cats2 = ref(realdb, 'Categories/');
-    await onValue(cats2, (snapshot) => {
-        if (snapshot) {
-            snapshot.forEach(function (doc) {
-                var data = doc.val();
-                if(array.includes(data.categoryid)){
-                    $('[data-cat="'+data.categoryid+'"]').html(data.categoryname);
-                    array.splice(array.indexOf(data.categoryid),1);
+            const cats2 = ref(realdb, 'Categories/');
+            await onValue(cats2, async (snapshot) => {
+                if (snapshot) {
+                    snapshot.forEach(function (doc) {
+                        var data = doc.val();
+                        if(array.includes(data.categoryid)){
+                            $('[data-cat="'+data.categoryid+'"]').html(data.categoryname);
+                            array.splice(array.indexOf(data.categoryid),1);
+                        }
+                    })
+                    const towns = ref(realdb, 'Towns/');
+                    await onValue(towns, (snapshot) => {
+                        if (snapshot) {
+                            snapshot.forEach(function (doc) {
+                                var data = doc.val();
+                                if(array3.includes(data.townid)){
+                                    $('[data-town="'+data.townid+'"]').html(data.townname);
+                                    array3.splice(array3.indexOf(data.townid),1);
+                                }
+                            })
+                            $('.image-link').lightGallery({
+                                thumbnail: true,
+                                selector: 'a'
+                            });
+                            $('#table-1').DataTable();
+                        }
+                    })
                 }
             })
-        }
-    })
-    const towns = ref(realdb, 'Towns/');
-    await onValue(towns, (snapshot) => {
-        if (snapshot) {
-            snapshot.forEach(function (doc) {
-                var data = doc.val();
-                if(array3.includes(data.townid)){
-                    $('[data-town="'+data.townid+'"]').html(data.townname);
-                    array3.splice(array3.indexOf(data.townid),1);
-                }
-            })
-            $('.image-link').lightGallery({
-                thumbnail: true,
-                selector: 'a'
-            });
-            $('#table-1').DataTable();
+            
         }
     })
 }
