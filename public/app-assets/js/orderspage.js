@@ -66,6 +66,11 @@ async function createTable() {
                     var customeraddress = data.customeraddress;
                     var customername = data.customername;
                     var date = data.date;
+                    date = date.split('/');
+                    date = date[1] + "/" + date[0] + "/" + date[2];
+                    var orderdate = new Date(date);
+                    var timestamp = orderdate.getTime();
+                    date = $.format.date(orderdate,'dd-MMM-yyyy');
                     var deliverycharges = data.deliverycharges;
                     var orderstatus = data.orderstatus;
                     var ordertime = data.ordertime;
@@ -110,12 +115,15 @@ async function createTable() {
                         var action = '-';
                         var rowId = "7";
                     }
+                    var input = `<input type="hidden" id="a-${doc.key}" value="${customeraddress}"/>`
                     var products = '<a data-toggle="tooltip" title="Show Products" style="color: #fff;cursor:pointer;" onclick="showProducts(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>';
+                    var address = '<a data-toggle="tooltip" title="Show Address" style="color: #fff;cursor:pointer;" onclick="showAddress(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>' + input;
                     
                     var row = `<tr data-row="${rowId}">
                             <td>${customercontact}</td>
                             <td class="">${customername}</td>
-                            <td class="">${date}</td>
+                            <td class="">${address}</td>
+                            <td class=""><span hidden>${timestamp}</span> ${date}</td>
                             <td class="">${products}</td>
                             <td class="">R ${deliverycharges}</td>
                             <td class="">R ${overTotal}</td>
@@ -158,8 +166,6 @@ async function GetTowns(array) {
         }
     })
 }
-
-
 $("#all").click(function () {
     $('.btn-check').removeClass('active');
     $('#all').addClass('active');
@@ -335,8 +341,14 @@ function UpdateEntity(Id,status){
     })
     .then(function(){
         MixinSweet("updated Successfully","","success",2000);
+        location.reload();
     })
     .catch(function(error){
         console.log(error);
     })
+}
+function showAddress(Id){
+    var address = $('#a-' + Id).val();
+    $('#AddressBody').html(address);
+    $('#addressModal').modal("show");
 }

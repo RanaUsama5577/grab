@@ -45,8 +45,17 @@
                             </tbody>
                         </table>
                         <div style="text-align: right;">
-                            <span>Total Earnings:</span>
+                            <span>Total Order Earnings:</span>
                             <span style="font-weight: 800;" id="TotalPrice"></span>
+                            
+                        </div>
+                        <div style="text-align: right;">
+                            <span>Total Service Charges Earnings:</span>
+                            <span style="font-weight: 800;" id="TotalService"></span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span>Total Delivery Fees Earnings:</span>
+                            <span style="font-weight: 800;" id="TotalDelivery"></span>
                         </div>
                       </div>
                     </div>  
@@ -114,7 +123,7 @@
             </div>
             <div class="modal-footer">
                 <a class="btn btn-default waves-effect" style="margin-left:auto;" data-bs-dismiss="modal">Close</a>
-                <button type="submit" onclick="createTable(2)" id="add_btn" class="btn btn-primary btn btn-primary waves-effect waves-light"><i style="margin-right:4px;" class="fa fa-check-circle"></i>Submit</button>
+                <button type="submit" onclick="FilterTable()" id="add_btn" class="btn btn-primary btn btn-primary waves-effect waves-light"><i style="margin-right:4px;" class="fa fa-check-circle"></i>Submit</button>
             </div>
         </div>
     </div>

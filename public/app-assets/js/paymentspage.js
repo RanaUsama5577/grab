@@ -64,8 +64,8 @@ async function createTable(num) {
         start_date = new Date(start_date);
         var end_date = $('#end_date').val();
         end_date = new Date(end_date);
-        var startDateVal = start_date.getDate() + "-" + ""  + start_date.getMonth() + 1 + "-" + start_date.getFullYear();
-        var endDateVal = end_date.getDate() + "-" + ""  + end_date.getMonth() + 1 + "-" + end_date.getFullYear();
+        var startDateVal = $.format.date(start_date,'dd-MMM-yyyy');
+        var endDateVal = $.format.date(end_date,'dd-MMM-yyyy');
         $('#PageHeading').html("Order Reports from " + startDateVal + " to " + endDateVal);
         $('#ResetTable').show();
     }
@@ -75,6 +75,8 @@ async function createTable(num) {
             $("#table-1").DataTable().destroy();
             $("#dataTable").html('');
             var priceAll = 0;
+            var serviceAll = 0;
+            var deliveryAll = 0;
             if (snapshot) {
                 var count = 0;
                 var towns = [];
@@ -87,7 +89,11 @@ async function createTable(num) {
                     var customername = data.customername;
                     
                     var date = data.date;
+                    date = date.split('/');
+                    date = date[1] + "/" + date[0] + "/" + date[2];
                     var orderdate = new Date(date);
+                    var timestamp = orderdate.getTime();
+                    date = $.format.date(orderdate,'dd-MMM-yyyy');
                     var deliverycharges = data.deliverycharges;
                     var orderstatus = data.orderstatus;
                     var ordertime = data.ordertime;
@@ -102,7 +108,7 @@ async function createTable(num) {
                     var row = `<tr>
                             <td>${customercontact}</td>
                             <td class="">${customername}</td>
-                            <td class="">${date}</td>
+                            <td class=""><span hidden>${timestamp}</span> ${date}</td>
                             <td class="">${products}</td>
                             <td class="">R ${deliverycharges}</td>
                             <td class="">R ${overTotal}</td>
@@ -118,6 +124,8 @@ async function createTable(num) {
                     if(num == 2){
                         if(orderdate >= start_date && orderdate <= end_date){
                             priceAll += parseFloat(overTotal);
+                            serviceAll += parseFloat(servicefee);
+                            deliveryAll += parseFloat(deliverycharges);
                             $('#dataTable').append(row);
                         }
                         else{
@@ -126,6 +134,8 @@ async function createTable(num) {
                     }
                     else{
                         priceAll += parseFloat(overTotal);
+                        serviceAll += parseFloat(servicefee);
+                        deliveryAll += parseFloat(deliverycharges);
                         $('#dataTable').append(row);
                     }
                 })
@@ -133,7 +143,9 @@ async function createTable(num) {
             else {
                 MixinSweet('No data!', 'There is no data to show', "info", 2000);
             }
-            $('#TotalPrice,#TotalPrice2').html("R" + priceAll);
+            $('#TotalPrice,#TotalPrice2').html("R " + priceAll);
+            $('#TotalService').html("R " + serviceAll);
+            $('#TotalDelivery').html("R " + deliveryAll);
             GetTowns(towns);
         });
     }
@@ -157,7 +169,6 @@ async function GetTowns(array) {
         }
     })
 }
-
 function showProducts(Id){
     const entities = ref(realdb, 'Ordersdetail/' + Id);
     try {
@@ -211,4 +222,26 @@ function dateRangeFilter(){
     $('#start_date').val("");
     $('#end_date').val("");
     $('#daterangeModal').modal("show");
+}
+function FilterTable(){
+    var start_date = $('#start_date').val();
+    var end_date = $('#end_date').val();
+    if(start_date == "" || end_date == ""){
+        sweetMessage("Error!","Please Enter Start Date And End Date","error");
+        return false
+    }
+    start_date = new Date(start_date);
+    end_date = new Date(end_date);
+    var newDate = new Date();
+    if(newDate <= start_date && newDate <= end_date){
+        sweetMessage("Error!","Date ranges should be smaller than Today's date","error");
+        return false
+    }
+    else if(end_date < start_date){
+        sweetMessage("Error!","End date should be greater than start date","error");
+        return false
+    }
+    else{
+        createTable(2);
+    }
 }
