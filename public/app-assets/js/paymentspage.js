@@ -110,9 +110,9 @@ async function createTable(num) {
                             <td class="">${customername}</td>
                             <td class=""><span hidden>${timestamp}</span> ${date}</td>
                             <td class="">${products}</td>
-                            <td class="">R ${deliverycharges}</td>
                             <td class="">R ${overTotal}</td>
                             <td class="">R ${servicefee}</td>
+                            <td class="">R ${deliverycharges}</td>
                             <td class="">${ordertime}</td>
                             <td class="">${time}</td>
                             <td data-town="${townid}"></td>
@@ -143,6 +143,9 @@ async function createTable(num) {
             else {
                 MixinSweet('No data!', 'There is no data to show', "info", 2000);
             }
+            priceAll = parseFloat(priceAll).toFixed(2);
+            serviceAll = parseFloat(serviceAll).toFixed(2);
+            deliveryAll = parseFloat(deliveryAll).toFixed(2);
             $('#TotalPrice,#TotalPrice2').html("R " + priceAll);
             $('#TotalService').html("R " + serviceAll);
             $('#TotalDelivery').html("R " + deliveryAll);
