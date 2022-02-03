@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" href="app-assets/vendors/css/pickers/pickadate/pickadate.css">
+<link rel="stylesheet" type="text/css" href="app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="app-assets/css/plugins/forms/pickers/form-flat-pickr.min.css">
+<link rel="stylesheet" type="text/css" href="app-assets/css/plugins/forms/pickers/form-pickadate.min.css">
 <div class="content-body">
     <section id="basic-datatable">
       <div class="row">
@@ -5,11 +9,15 @@
               <div class="card">
                   <div style="justify-content: flex-start;" class="card-header border-bottom p-1">
                     <div class="head-label">
-                        <h6 class="mb-0">Completed Orders</h6>
+                        <h6 class="mb-0" id="PageHeading">Completed Orders</h6>
                     </div>
-                    <div style="margin-left: auto;">
-                        <span>Total Earnings:</span>
-                        <span style="font-weight: 800;" id="TotalPrice2"></span>
+                    <div class="dt-buttons d-inline-flex" style="margin-left: auto;">
+                        <button class="dt-button create-new btn btn-primary"  onclick="dateRangeFilter()" type="button">
+                            <span>Date Range</span>
+                        </button>
+                        <button style="display:none;margin-left: 4px;" id="ResetTable" class="dt-button btn btn-primary"  onclick="createTable(0)" type="button">
+                            <span>Reset</span>
+                        </button>
                     </div>
                   </div>
                   <div class="card-body">
@@ -80,7 +88,43 @@
       </div>
   </div>
 </div>
-
+<div class="modal fade" id="daterangeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Date Range</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label for="start_date">Start Date</label>
+                            <input class="form-control flatpickr-date-time flatpickr-input" id="start_date" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group">
+                            <label for="start_date">End Date</label>
+                            <input class="form-control flatpickr-date-time flatpickr-input" id="end_date" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-default waves-effect" style="margin-left:auto;" data-bs-dismiss="modal">Close</a>
+                <button type="submit" onclick="createTable(2)" id="add_btn" class="btn btn-primary btn btn-primary waves-effect waves-light"><i style="margin-right:4px;" class="fa fa-check-circle"></i>Submit</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <script src="app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+  <script src="app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+  <script src="app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+  <script src="app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
+  <script src="app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+  <script src="app-assets/js/scripts/forms/pickers/form-pickers.min.js"></script>
 <script src="app-assets/js/paymentspage.js"></script>
 
 

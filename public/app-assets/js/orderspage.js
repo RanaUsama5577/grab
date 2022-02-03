@@ -77,7 +77,7 @@ async function createTable() {
 
                     if(orderstatus == "Registered"){
                         var label = '<div class="custombadge-outline col-blue custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Preparing order\')" class="btn btn-primary badge-shadow">Mark it as preparing</a>';
+                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Accepted\')" class="btn btn-success badge-shadow">Accept</a><a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Rejected\')" class="btn btn-danger badge-shadow">Reject</a>';
                         var rowId = "1";
                     }
                     else if(orderstatus == "Preparing order"){
@@ -99,6 +99,16 @@ async function createTable() {
                         var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
                         var action = '';
                         var rowId = "5";
+                    }
+                    else if(orderstatus == "Accepted"){
+                        var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
+                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Preparing order\')" class="btn btn-primary badge-shadow">Mark it as dispatched</a>';
+                        var rowId = "6";
+                    }
+                    else if(orderstatus == "Rejected"){
+                        var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
+                        var action = '-';
+                        var rowId = "7";
                     }
                     var products = '<a data-toggle="tooltip" title="Show Products" style="color: #fff;cursor:pointer;" onclick="showProducts(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>';
                     
@@ -218,6 +228,32 @@ $("#completed").click(function () {
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
             return $(table.row(dataIndex).node()).attr('data-row') == "5";
+        }
+    );
+    table.draw();
+});
+$("#accepted").click(function () {
+    $('.btn-check').removeClass('active');
+    $('#ontheway').addClass('active');
+    var table = $('#table-1').DataTable();
+    $.fn.dataTable.ext.search.pop();
+    table.draw();
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            return $(table.row(dataIndex).node()).attr('data-row') == "6";
+        }
+    );
+    table.draw();
+});
+$("#rejected").click(function () {
+    $('.btn-check').removeClass('active');
+    $('#rejected').addClass('active');
+    var table = $('#table-1').DataTable();
+    $.fn.dataTable.ext.search.pop();
+    table.draw();
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            return $(table.row(dataIndex).node()).attr('data-row') == "7";
         }
     );
     table.draw();

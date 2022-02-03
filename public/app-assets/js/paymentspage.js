@@ -54,9 +54,21 @@ $(async function () {
     equalTo = exportData.equalTo;
     orderByChild = exportData.orderByChild;
     queryReal = exportData.queryReal;
-    createTable();
+    createTable(1);
 })
-async function createTable() {
+async function createTable(num) {
+    $('#PageHeading').html("All Completed Orders");
+    $('#ResetTable').hide();
+    if(num == 2){
+        var start_date = $('#start_date').val();
+        start_date = new Date(start_date);
+        var end_date = $('#end_date').val();
+        end_date = new Date(end_date);
+        var startDateVal = start_date.getDate() + "-" + ""  + start_date.getMonth() + 1 + "-" + start_date.getFullYear();
+        var endDateVal = end_date.getDate() + "-" + ""  + end_date.getMonth() + 1 + "-" + end_date.getFullYear();
+        $('#PageHeading').html("Order Reports from " + startDateVal + " to " + endDateVal);
+        $('#ResetTable').show();
+    }
     const entities = queryReal(ref(realdb, '/Orders'), orderByChild('orderstatus'), equalTo("Delivered"));
     try {
         onValue(entities, (snapshot) => {
@@ -71,20 +83,22 @@ async function createTable() {
                     var data = doc.val();
                     
                     var customercontact = data.customercontact;
-                    var customeraddress = data.customeraddress;
+                    //var customeraddress = data.customeraddress;
                     var customername = data.customername;
+                    
                     var date = data.date;
+                    var orderdate = new Date(date);
                     var deliverycharges = data.deliverycharges;
                     var orderstatus = data.orderstatus;
                     var ordertime = data.ordertime;
                     var overTotal = data.overTotal;
-                    var productnotavailcase = data.productnotavailcase;
+                    //var productnotavailcase = data.productnotavailcase;
                     var servicefee = data.servicefee;
                     var time = data.time;
                     var townid = data.townid;
                     var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
                     var products = '<a data-toggle="tooltip" title="Show Products" style="color: #fff;cursor:pointer;" onclick="showProducts(\'' + doc.key + '\')" class="btn btn-primary badge-shadow"><i class="fas fa-eye"></i></a>';
-                    priceAll += parseFloat(overTotal);
+                    
                     var row = `<tr>
                             <td>${customercontact}</td>
                             <td class="">${customername}</td>
@@ -101,7 +115,19 @@ async function createTable() {
                     if (!towns.includes(townid)) {
                         towns.push(townid);
                     }
-                    $('#dataTable').append(row);
+                    if(num == 2){
+                        if(orderdate >= start_date && orderdate <= end_date){
+                            priceAll += parseFloat(overTotal);
+                            $('#dataTable').append(row);
+                        }
+                        else{
+
+                        }
+                    }
+                    else{
+                        priceAll += parseFloat(overTotal);
+                        $('#dataTable').append(row);
+                    }
                 })
             }
             else {
@@ -127,6 +153,7 @@ async function GetTowns(array) {
                 }
             })
             $('#table-1').DataTable();
+            $('#daterangeModal').modal("hide");
         }
     })
 }
@@ -179,4 +206,9 @@ function showProducts(Id){
     catch(ex){
         console.log(ex);
     }
+}
+function dateRangeFilter(){
+    $('#start_date').val("");
+    $('#end_date').val("");
+    $('#daterangeModal').modal("show");
 }
