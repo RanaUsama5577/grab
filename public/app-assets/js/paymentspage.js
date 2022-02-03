@@ -90,9 +90,9 @@ async function createTable() {
                             <td class="">${customername}</td>
                             <td class="">${date}</td>
                             <td class="">${products}</td>
-                            <td class="">${deliverycharges}</td>
-                            <td class="">${overTotal}</td>
-                            <td class="">${servicefee}</td>
+                            <td class="">R ${deliverycharges}</td>
+                            <td class="">R ${overTotal}</td>
+                            <td class="">R ${servicefee}</td>
                             <td class="">${ordertime}</td>
                             <td class="">${time}</td>
                             <td data-town="${townid}"></td>
@@ -107,7 +107,7 @@ async function createTable() {
             else {
                 MixinSweet('No data!', 'There is no data to show', "info", 2000);
             }
-            $('#TotalPrice,#TotalPrice2').html("$" + priceAll);
+            $('#TotalPrice,#TotalPrice2').html("R" + priceAll);
             GetTowns(towns);
         });
     }
@@ -164,8 +164,8 @@ function showProducts(Id){
                     <td>${count}</td>
                     <td class="">${product}</td>
                     <td class="">${quantity}</td>
-                    <td class="">${price}</td>
-                    <td class="">${totalprice}</td>
+                    <td class="">R ${price}</td>
+                    <td class="">R ${totalprice}</td>
                     <td>${marketname}</td>
                     <td class="">${menucategory}</td>
                     </tr>`;

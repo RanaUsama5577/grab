@@ -256,9 +256,9 @@ function ShowInfo(Id){
     var issparsshow = $(`#is-${Id}`).val();
 
     $('#DescBody').html("");
-    $('#DescBody').append(`<p>Checkers Pay : ${checkerspayprice}</p>`);
-    $('#DescBody').append(`<p>Pick And Pay : ${picknpayprice}</p>`);
-    $('#DescBody').append(`<p>S Pars Pay : ${sparsprice}</p>`);
+    $('#DescBody').append(`<p>Checkers Pay :R  ${checkerspayprice}</p>`);
+    $('#DescBody').append(`<p>Pick And Pay :R  ${picknpayprice}</p>`);
+    $('#DescBody').append(`<p>S Pars Pay :R  ${sparsprice}</p>`);
     $('#DescBody').append(`<p>Is Checkers : ${isCheckersshow}</p>`);
     $('#DescBody').append(`<p>Is Pick And Pay : ${isPicknpayshow}</p>`);
     $('#DescBody').append(`<p>Is Pars Pay : ${issparsshow}</p>`);

@@ -107,10 +107,10 @@ async function createTable() {
                             <td class="">${customername}</td>
                             <td class="">${date}</td>
                             <td class="">${products}</td>
-                            <td class="">${deliverycharges}</td>
-                            <td class="">${overTotal}</td>
+                            <td class="">R ${deliverycharges}</td>
+                            <td class="">R ${overTotal}</td>
                             <td class="">${productnotavailcase}</td>
-                            <td class="">${servicefee}</td>
+                            <td class="">R ${servicefee}</td>
                             <td class="">${ordertime}</td>
                             <td class="">${time}</td>
                             <td data-town="${townid}"></td>
@@ -255,8 +255,8 @@ function showProducts(Id){
                     <td>${count}</td>
                     <td class="">${product}</td>
                     <td class="">${quantity}</td>
-                    <td class="">${price}</td>
-                    <td class="">${totalprice}</td>
+                    <td class="">R ${price}</td>
+                    <td class="">R ${totalprice}</td>
                     <td>${marketname}</td>
                     <td class="">${menucategory}</td>
                     </tr>`;
