@@ -102,7 +102,7 @@ async function createTable() {
                     }
                     else if(orderstatus == "Accepted"){
                         var label = '<div class="custombadge-outline col-green custombadge-shadow">'+orderstatus+'</div>';
-                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Preparing order\')" class="btn btn-primary badge-shadow">Mark it as dispatched</a>';
+                        var action = '<a style="color: #fff;cursor:pointer;" onclick="showUpdateModal(\'' + doc.key + '\',\'Preparing order\')" class="btn btn-primary badge-shadow">Mark it as preparing</a>';
                         var rowId = "6";
                     }
                     else if(orderstatus == "Rejected"){
