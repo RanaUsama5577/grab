@@ -5,6 +5,8 @@ var express = require('express');
 const db = admin.firestore();
 var app = express();
 
+app.use(cors({ origin: true }));
+
 var expressLayouts = require('express-ejs-layouts');
 // set the view engine to ejs
 app.set('view engine', 'ejs');
